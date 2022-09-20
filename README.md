@@ -16,5 +16,5 @@ This is a project for Software Enginnering lab.
 2. ```pip install``` - Install the packages defined in requirements.txt
 
 # Running the project
-You need to be in a virtual environment to be able to run the project, which you can do with ```pipenv shell```.
+You need to be in a virtual environment to be able to run the project, which you can do that with running ```pipenv shell```.
 When you are ready, run ```python main.py```
