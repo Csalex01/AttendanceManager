@@ -9,7 +9,9 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "985230d0ce098c081e5b5b70f9797064"
 
 # Import blueprints
-from AttendanceManager.views import views
+from AttendanceManager.general import general
+from AttendanceManager.auth import auth
 
 # Register blueprints
-app.register_blueprint(views, url_prefix="/")
+app.register_blueprint(general, url_prefix="/")
+app.register_blueprint(auth, url_prefix="/")
