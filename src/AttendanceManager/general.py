@@ -31,6 +31,11 @@ def enrolled_students():
   
   return redirect(url_for("general.index"))
 
+@general.route("/attendance")
+def attendance():
+  if user_role == "student":
+    return render_template("student/attendance.html")
+
 @general.route("/profile")
 def profile():
   return render_template("general/profile.html")
