@@ -43,3 +43,7 @@ def profile():
 @general.route("/contact")
 def contact():
   return redirect("https://ms.sapientia.ro/hu/a-karrol/elerhetosegek")
+
+@general.route("/logout")
+def logout():
+  pass
