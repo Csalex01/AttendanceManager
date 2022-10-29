@@ -35,7 +35,7 @@ def enrolled_students():
 def attendance():
   if user_role == "student":
     return render_template("student/attendance.html")
-
+    
 @general.route("/profile")
 def profile():
   return render_template("general/profile.html")
@@ -43,3 +43,7 @@ def profile():
 @general.route("/contact")
 def contact():
   return redirect("https://ms.sapientia.ro/hu/a-karrol/elerhetosegek")
+
+@general.route("/logout")
+def logout():
+  pass
