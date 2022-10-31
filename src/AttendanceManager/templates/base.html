@@ -27,13 +27,37 @@
 
       <div class="collapse navbar-collapse" id="content">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <li class="nav-item">
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.contact') }}">Contact</a>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link" aria-current="Courses" href="{{ url_for('general.courses') }}">My Courses</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="Contact" href="{{ url_for('general.contact') }}">Contact</a>
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.attendance') }}">Attendance</a>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-nav mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link" aria-current="Contact" href="{{ url_for('auth.login') }}">Log In</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.logout') }}">Log Out</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="btn btn-success" aria-current="Contact" href="{{ url_for('auth.signup') }}">Sign Up</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" aria-current="Contact" href="{{ url_for('general.profile') }}">Profile</a>
           </li>
 
         </ul>
