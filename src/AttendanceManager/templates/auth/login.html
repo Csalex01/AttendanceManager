@@ -3,48 +3,49 @@
 {% block title %} Login {% endblock title %}
 
 {% block content %}
-<section class="vh-100 gradient-custom">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card bg-succes text-black" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
+<fieldset class="form-group panel mt-3">
+  <legend class="border-bottom mb-4">Log in!</legend>
 
-            <div class="mb-md-5 mt-md-4 pb-5">
+  <form method="POST">
 
-              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-
-              <div class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Email</label>
-              </div>
-
-              <div class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
-              </div>
-
-              <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#!">Forgot password?</a></p>
-
-              <button class="btn btn-outline-success btn-lg px-5" type="submit">Login</button>
-
-            </div>
-
-            <div>
-              <p class="mb-0">Don't have an account? <a href="#!" class="text-black-50 fw-bold">Sign Up</a>
-              </p>
-            </div>
-
-          </div>
+    <div class="row mb-3">
+      <div class="form-group">
+        <label for="email" class="form-label">E-mail</label>
+        <div class="input-group has-validation">
+          <input type="email" name="email" id="email" class="form-control" placeholder="user@example.com">
         </div>
       </div>
     </div>
+
+    <div class="row mb-3">
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group has-validation">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-group col">
+        <button class="btn btn-primary">Log in</button>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      Need an account? <a href="#">Register here!</a>
+    </small>
   </div>
-</section>
+
+</fieldset>
 
 <style>
-  .card { 
-  background: #EAEAEA;
+  .panel {
+    margin: 0 auto;
+    max-width: 500px;
   }
- </style>
+</style>
 {% endblock content %}
