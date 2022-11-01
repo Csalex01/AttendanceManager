@@ -8,26 +8,40 @@ general = Blueprint("general", __name__)
 @general.route("/")
 @login_required
 def index():
+
+  # If the current user is a teacher
   if current_user.UserType == 1:
     return render_template("teacher/index.html")
+
+  # Else if the current user is a student
   elif current_user.UserType == 0:
     return render_template("student/index.html")
+
+  # If neither, redirect to login
   else:
     return redirect(url_for("auth.login"))
 
 @general.route("/courses")
 @login_required
 def courses():
+
+  # If the current user is a teacher
   if current_user.UserType == 1:
     return render_template("teacher/courses.html")
+
+  # Else if the current user is a student
   elif current_user.UserType == 0:
     return render_template("student/courses.html")
+
+  # If neither, redirect to login
   else:
     return redirect(url_for("auth.login"))
 
 @general.route("/enrolled_students")
 @login_required
 def enrolled_students():
+
+  # If the current user is a teacher
   if current_user.UserType == 1:
     return render_template("teacher/enrolled_students.html")
   
@@ -36,6 +50,8 @@ def enrolled_students():
 @general.route("/attendance")
 @login_required
 def attendance():
+
+  # If the current user is a student
   if current_user.UserType == 0:
     return render_template("student/attendance.html")
     

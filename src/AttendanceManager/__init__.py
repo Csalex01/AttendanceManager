@@ -35,11 +35,13 @@ if not path.exists(f"AttendanceManager/{DB_NAME}"):
   db.create_all(app=app)
   print("DATABASE CREATED!")
 
+# Create login manager
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 login_manager.login_message_category = "danger"
 login_manager.init_app(app)
 
+# THis function is responsible for fetching the current user from the database
 @login_manager.user_loader
 def load_user(NeptunCode):
   return Users.query.get(NeptunCode)
