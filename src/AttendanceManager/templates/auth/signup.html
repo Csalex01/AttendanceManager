@@ -3,7 +3,91 @@
 {% block title %} Signup {% endblock title %}
 
 {% block content %}
-<section class="vh-100 bg-image">
+<fieldset class="form-group panel mt-3">
+  <legend class="border-bottom mb-4">Sign Up!</legend>
+
+  <form method="POST">
+
+    <div class="row mb-3">
+      <div class="form-group">
+        <label for="email" class="form-label">E-mail</label>
+        <div class="input-group has-validation">
+          <input type="email" name="email" id="email"
+                 class="form-control"
+                 placeholder="user@example.com">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-group">
+        <label for="neptun_code">Neptun Code</label>
+        <div class="input-group has-validation">
+          <input type="text"
+                 name="neptun_code"
+                 id="neptun_code"
+                 class="form-control"
+                 placeholder="ABCDE1">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-group col-6">
+        <label for="first_name" class="form-label">First Name</label>
+        <div class="input-group has-validation">
+          <input type="text" name="first_name" id="first_name"
+                 class="form-control"
+                 placeholder="First Name">
+        </div>
+      </div>
+      <div class="form-group col-6">
+        <label for="last_name" class="form-label">Last Name</label>
+        <div class="input-group has-validation">
+          <input type="text" name="last_name" id="last_name"
+                 class="form-control"
+                 placeholder="Last Name">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-group col-6">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group has-validation">
+          <input type="password" name="password" id="password"
+                 class="form-control"
+                 placeholder="Enter password">
+        </div>
+      </div>
+      <div class="form-group col-6">
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <div class="input-group has-validation">
+          <input type="password" name="confirm_password" id="confirm_password"
+                 class="form-control"
+                 placeholder="Enter password again">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-group col">
+        <button class="btn btn-primary">Register</button>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      Already Have an Account? <a href="#" class="me-2">Log In!</a>
+    </small>
+  </div>
+
+</fieldset>
+
+<!--
+  <section class="vh-100 bg-image">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -60,10 +144,12 @@
     </div>
   </div>
 </section>
+-->
 
 <style>
- .card { 
- background: #EAEAEA;
- }
+  .panel {
+    margin: 0 auto;
+    max-width: 500px;
+  }
 </style>
 {% endblock content %}
