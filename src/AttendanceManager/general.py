@@ -43,14 +43,6 @@ def enrolled_students():
   
   return redirect(url_for("general.index"))
 
-@general.route("/attendance")
-@login_required
-def attendance():
-
-  # If the current user is a student
-  if current_user.UserType == 0:
-    return render_template("student/attendance.html")
-    
 @general.route("/profile")
 @login_required
 def profile():
