@@ -9,15 +9,11 @@ general = Blueprint("general", __name__)
 @login_required
 def index():
 
-  # If the current user is a techer
-  if current_user.UserType == 1:
-    return render_template("teacher/index.html")
+  # If the current user is authenticated
+  if current_user.is_authenticated == True:
+    return redirect(url_for("general.courses"))
 
-  # Else if the current user is a student
-  elif current_user.UserType == 0:
-    return render_template("student/index.html")
-
-  # If neither, redirect to login
+  # If not, redirect to login
   else:
     return redirect(url_for("auth.login"))
 
