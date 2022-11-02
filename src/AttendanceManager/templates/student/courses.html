@@ -4,20 +4,25 @@
 
 {% block content %}
 
+<h1>My Courses</h1>
 
-<div class="row">
-  <div class="col-3">
-    <h2 class="border-bottom mb-4">Fizika II.</h2>
+<div class="row mt-5">
 
-    <div class="d-grid gap-2 col-7">
-        <button class="btn btn-primary" type="button">Fizika II.</button>
-        <button class="btn btn-primary" type="button">Villamosságtan II.</button>
-        <button class="btn btn-primary" type="button">Adatbázis I.</button>
+  <div class="col-3 menu">
+    <h2>Menu</h2>
+
+    <hr>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="button">Fizika II.</button>
+      <button class="btn btn-primary" type="button">Villamosságtan II.</button>
+      <button class="btn btn-primary" type="button">Adatbázis I.</button>
     </div>
-    
+
   </div>
 
   <div class="col-9">
+    <h2>Fizika II.</h2>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -90,7 +95,7 @@
         </tr>
       </tbody>
     </table>
-    
+
   </div>
 </div>
 
@@ -99,8 +104,8 @@
     background: #EAEAEA;
   }
 
-  h2 {
-    margin-top: 70px;
+  .menu {
+    border-right: 1px solid lightgray;
   }
 </style>
 {% endblock content %}
