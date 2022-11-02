@@ -19,7 +19,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a href="{{ url_for('general.index') }}" class="navbar-brand">AttendanceManager</a>
+      <a href="{{ url_for('general.index') }}" class="navbar-brand">AttendanceManager </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#content"
               aria-controls="content" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,6 +32,8 @@
             <a class="nav-link" aria-current="Courses" href="{{ url_for('general.contact') }}">Contact</a>
           </li>
 
+          {% if current_user.is_authenticated == True %}
+
           <li class="nav-item">
             <a class="nav-link" aria-current="Courses" href="{{ url_for('general.courses') }}">My Courses</a>
           </li>
@@ -40,32 +42,44 @@
             <a class="nav-link" aria-current="Courses" href="{{ url_for('general.attendance') }}">Attendance</a>
           </li>
 
+          {% endif %}
+
         </ul>
 
         <ul class="navbar-nav mb-2 mb-lg-0">
+
+          {% if current_user.is_authenticated == False %}
 
           <li class="nav-item">
             <a class="nav-link" aria-current="Contact" href="{{ url_for('auth.login') }}">Log In</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="Courses" href="{{ url_for('auth.logout') }}">Log Out</a>
+            <a class="btn btn-success" aria-current="Contact" href="{{ url_for('auth.signup') }}">Sign Up</a>
           </li>
 
+          {% endif %}
+
+          {% if current_user.is_authenticated == True %}
+
           <li class="nav-item">
-            <a class="btn btn-success" aria-current="Contact" href="{{ url_for('auth.signup') }}">Sign Up</a>
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('auth.logout') }}">Log Out</a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" aria-current="Contact" href="{{ url_for('general.profile') }}">Profile</a>
           </li>
 
+          {% endif %}
+
         </ul>
       </div>
     </div>
   </nav>
 
-  {% block content %}{% endblock content %}
+  <div class="container mt-3">
+    {% block content %}{% endblock content %}
+  </div>
 </body>
 
 </html>
