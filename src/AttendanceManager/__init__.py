@@ -20,6 +20,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 from AttendanceManager.general import general
 from AttendanceManager.auth import auth
 
+from init_database import init_database
+
 # Register blueprints
 app.register_blueprint(general, url_prefix="/")
 app.register_blueprint(auth, url_prefix="/")
@@ -33,6 +35,7 @@ db.init_app(app=app)
 # Create .db file if it does not exist.
 if not path.exists(f"AttendanceManager/{DB_NAME}"):
   db.create_all(app=app)
+  init_database()
   print("DATABASE CREATED!")
 
 # Create login manager

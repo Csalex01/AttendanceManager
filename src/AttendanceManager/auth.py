@@ -96,6 +96,11 @@ def login():
         # If the password is incorrect, reload the page.
         return redirect(url_for("auth.login"))
 
+    else:
+
+      # If user does not exist, redirect to signup
+      return redirect(url_for("auth.login"))
+
   # GET request handler
   else:
     return render_template("auth/login.html")
