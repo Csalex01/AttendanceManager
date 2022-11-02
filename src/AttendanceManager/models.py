@@ -20,7 +20,7 @@ class Courses(db.Model):
   CourseID = db.Column(db.Integer, primary_key=True)
   TeacherCode = db.Column(db.Integer, unique=True, nullable=False)
   Name = db.Column(db.String(50), unique=True, nullable=False)
-  Department = db.Column(db.Integer, nullable=False)
+  DepartmentID = db.Column(db.Integer, nullable=False)
 
 # Model for Enrolled Students
 class EnrolledStudents(db.Model):
@@ -44,3 +44,9 @@ class Attendance(db.Model):
 # Model for Teachers (used at user registration to decide the user type)
 class Teachers(db.Model):
   NeptunCode = db.Column(db.String(6), primary_key=True)
+
+#Model for Departments
+class Departments(db.Model):
+  DepartmentID = db.Column(db.Integer, primary_key=True)
+  DepartmentName = db.Column(db.String(50), unique=True, nullable=False)
+  
