@@ -21,6 +21,7 @@ class Courses(db.Model):
   TeacherCode = db.Column(db.Integer, unique=True, nullable=False)
   Name = db.Column(db.String(50), unique=True, nullable=False)
   DepartmentID = db.Column(db.Integer, nullable=False)
+  CourseType = db.Column(db.Integer, nullable=False)
 
 # Model for Enrolled Students
 class EnrolledStudents(db.Model):
@@ -50,3 +51,7 @@ class Departments(db.Model):
   DepartmentID = db.Column(db.Integer, primary_key=True)
   DepartmentName = db.Column(db.String(50), unique=True, nullable=False)
   
+#Model for CourseTypes
+class CourseTypes(db.Model):
+  CourseTypeID = db.Column(db.Integer, primary_key=True)
+  CourseTypeName = db.Column(db.String(10), nullable=False)
