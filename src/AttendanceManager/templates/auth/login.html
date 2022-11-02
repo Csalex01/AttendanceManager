@@ -3,7 +3,7 @@
 {% block title %} Login {% endblock title %}
 
 {% block content %}
-<fieldset class="form-group panel mt-3">
+<fieldset class="form-group panel mt-3 bg-light">
   <legend class="border-bottom mb-4">Log in!</legend>
 
   <form method="POST">
@@ -28,7 +28,7 @@
 
     <div class="row mb-3">
       <div class="form-group col">
-        <button class="btn btn-primary">Log in</button>
+        <button class="btn btn-success">Log in</button>
       </div>
     </div>
 
@@ -42,10 +42,19 @@
 
 </fieldset>
 
+
 <style>
   .panel {
     margin: 0 auto;
     max-width: 500px;
+  }
+  fieldset {
+    padding: 15px;
+
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.95);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+
+    border-radius: 10px;
   }
 </style>
 {% endblock content %}
