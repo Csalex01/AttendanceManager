@@ -9,7 +9,7 @@ general = Blueprint("general", __name__)
 @login_required
 def index():
 
-  # If the current user is a teacher
+  # If the current user is a techer
   if current_user.UserType == 1:
     return render_template("teacher/index.html")
 
