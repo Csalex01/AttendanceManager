@@ -26,6 +26,8 @@
 	- SQLAlchemy v1.4.41
 	- Werkzeug v2.2.2
 	- zipp v3.8.1
+- Latest Pip version
+- Latest Pipenv version
 
 ### Non-functional requirements
 - Accessibility, easy navigation.

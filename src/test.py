@@ -1,5 +1,5 @@
 from AttendanceManager import db, app
-from AttendanceManager.models import Users
+from AttendanceManager.models import Teachers
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -8,23 +8,16 @@ ctx = app.app_context()
 ctx.push()
 
 # Test Code
-NeptunCode = input("NeptunCode: ")
-Email = input("Email: ")
-Password = input("Password: ")
-FirstName = input("First Name: ")
-LastName = input("Last Name: ")
-UserType = int(input("User Type (0 - Student, 1 - Teacher): "))
+teacher_1 = Teachers(NeptunCode="ABCDE0")
+teacher_2 = Teachers(NeptunCode="FGHIJ1")
+teacher_3 = Teachers(NeptunCode="KLMNO2")
+teacher_4 = Teachers(NeptunCode="PQRST3")
 
-new_user = Users(
-  NeptunCode=NeptunCode,
-  Email=Email,
-  Password=Password,
-  FirstName=FirstName,
-  LastName=LastName,
-  UserType=UserType
-)
+db.session.add(teacher_1)
+db.session.add(teacher_2)
+db.session.add(teacher_3)
+db.session.add(teacher_4)
 
-db.session.add(new_user)
 db.session.commit()
 
 # Pop Application Context
