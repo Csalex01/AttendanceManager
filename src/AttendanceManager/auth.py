@@ -41,6 +41,8 @@ def signup():
       print(f"Confirm Password: {confirm_password}")
       print(f"User Type: {user_type}")
 
+      # TODO Check for existing user.
+
       # TODO Check for input validity (length, format, etc...)
 
       # Create the new user

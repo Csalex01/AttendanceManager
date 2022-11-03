@@ -4,7 +4,6 @@ from sqlalchemy.sql import func
 
 # Model for Users
 
-
 class Users(db.Model, UserMixin):
     NeptunCode = db.Column(db.String(6), primary_key=True)
     Email = db.Column(db.String(100), unique=True, nullable=False)
@@ -19,7 +18,6 @@ class Users(db.Model, UserMixin):
 
 # Model for Courses
 
-
 class Courses(db.Model):
     CourseID = db.Column(db.Integer, primary_key=True)
     TeacherCode = db.Column(db.Integer, unique=True, nullable=False)
@@ -29,14 +27,12 @@ class Courses(db.Model):
 
 # Model for Enrolled Students
 
-
 class EnrolledStudents(db.Model):
     StudentCode = db.Column(db.Integer, primary_key=True)
     CourseID = db.Column(db.Integer, primary_key=True)
     Approved = db.Column(db.Boolean, default=False)
 
 # Model for Course Dates (when is a course held with a given type)
-
 
 class CourseDates(db.Model):
     OccasionID = db.Column(db.Integer, primary_key=True)
@@ -46,7 +42,6 @@ class CourseDates(db.Model):
 
 # Model for Student Attendance
 
-
 class Attendance(db.Model):
     CourseID = db.Column(db.Integer, primary_key=True)
     StudentCode = db.Column(db.Integer, primary_key=True)
@@ -54,19 +49,16 @@ class Attendance(db.Model):
 
 # Model for Teachers (used at user registration to decide the user type)
 
-
 class Teachers(db.Model):
     NeptunCode = db.Column(db.String(6), primary_key=True)
 
 # Model for Departments
-
 
 class Departments(db.Model):
     DepartmentID = db.Column(db.Integer, primary_key=True)
     DepartmentName = db.Column(db.String(50), unique=True, nullable=False)
 
 # Model for CourseTypes
-
 
 class CourseTypes(db.Model):
     CourseTypeID = db.Column(db.Integer, primary_key=True)
