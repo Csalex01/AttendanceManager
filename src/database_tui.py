@@ -29,7 +29,13 @@ def print_teachers():
 
     print(f"\n{COLORS.OKGREEN}Teachers\n*--------*{COLORS.RESET}")
     for idx, teacher in enumerate(teachers):
+        user = Users.query.filter_by(NeptunCode=teacher.NeptunCode).first()
+
         print(f"{COLORS.OKCYAN}{idx + 1}. Neptun Code: {teacher.NeptunCode}{COLORS.RESET}")
+
+        if user != None:
+            print(f"\tEmail: {user.Email}")
+            print(f"\tName: {user.FirstName} {user.LastName}")
 
     print("")
 
@@ -86,6 +92,8 @@ def signup_user():
 
     db.session.add(new_user)
     db.session.commit()
+
+    print(f"{COLORS.OKGREEN}\nUser {neptun_code} successfully added to database!{COLORS.RESET}")
 
 # Method for menu
 def menu():
