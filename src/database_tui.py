@@ -4,6 +4,7 @@ from AttendanceManager.models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from getpass import getpass
+import os
 
 from AttendanceManager.helpers import COLORS
 
@@ -98,14 +99,15 @@ def signup_user():
 # Method for menu
 def menu():
     while True:
+
         print(f"\n{COLORS.OKCYAN}*--------* AttendanceManager Database TUI *--------*{COLORS.RESET}")
-        print(f"{COLORS.OKBLUE}*-----------* LOG *-----------*{COLORS.RESET}")
+        print(f"{COLORS.WARNING}*-----------* LOG *-----------*{COLORS.RESET}")
         print(f"{COLORS.OKGREEN}1.){COLORS.RESET} Print Users")
         print(f"{COLORS.OKGREEN}2.){COLORS.RESET} Print Teachers")
         print(f"{COLORS.OKGREEN}3.){COLORS.RESET} Print Departments")
-        print(f"{COLORS.OKBLUE}*-----* Add to Database *-----*{COLORS.RESET}")
+        print(f"{COLORS.WARNING}*-----* Add to Database *-----*{COLORS.RESET}")
         print(f"{COLORS.OKGREEN}4.){COLORS.RESET} Sign Up User")
-        print(f"{COLORS.OKBLUE}*-----------------------------*{COLORS.RESET}")
+        print(f"{COLORS.WARNING}*-----------------------------*{COLORS.RESET}")
         print(f"{COLORS.OKGREEN}0.){COLORS.RESET} Exit")
         print(f"{COLORS.OKCYAN}*--------------------------------------------------*{COLORS.RESET}")
 
@@ -114,6 +116,8 @@ def menu():
         except ValueError:
             print(f"\n{COLORS.FAIL}Invalid input! Numbers only.{COLORS.RESET}")
             continue
+
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         if choice == 1:
             print_users()
@@ -134,6 +138,7 @@ def menu():
         else:
             print(f"\n{COLORS.FAIL}Invalid input!{COLORS.RESET}")
 
+# Start the menu
 menu()
 
 # Pop application context
