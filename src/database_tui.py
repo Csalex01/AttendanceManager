@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from getpass import getpass
 import os
 
-from AttendanceManager.helpers import COLORS
+from AttendanceManager.helpers import COLORS, clear_screen
 
 # Push application context
 ctx = app.app_context()
@@ -54,13 +54,18 @@ def print_departments():
 def signup_user():
     print(f"\n{COLORS.OKGREEN}Sign Up User\n*--------*{COLORS.RESET}")
 
-    neptun_code = input(f"{COLORS.OKCYAN}> Neptun Code:{COLORS.RESET} ")
-    email = input(f"{COLORS.OKCYAN}> Email:{COLORS.RESET} ")
-    password = getpass(f"{COLORS.OKCYAN}> Password:{COLORS.RESET} ")
-    confirm_password = getpass(f"{COLORS.OKCYAN}> Confirm Password:{COLORS.RESET} ")
-    first_name = input(f"{COLORS.OKCYAN}> First Name:{COLORS.RESET} ")
-    last_name = input(f"{COLORS.OKCYAN}> Last Name:{COLORS.RESET} ")
-    user_type = 0
+    try:
+        neptun_code = input(f"{COLORS.OKCYAN}> Neptun Code:{COLORS.RESET} ")
+        email = input(f"{COLORS.OKCYAN}> Email:{COLORS.RESET} ")
+        password = getpass(f"{COLORS.OKCYAN}> Password:{COLORS.RESET} ")
+        confirm_password = getpass(f"{COLORS.OKCYAN}> Confirm Password:{COLORS.RESET} ")
+        first_name = input(f"{COLORS.OKCYAN}> First Name:{COLORS.RESET} ")
+        last_name = input(f"{COLORS.OKCYAN}> Last Name:{COLORS.RESET} ")
+        user_type = 0
+
+    except KeyboardInterrupt:
+        print(f"\n{COLORS.FAIL}\nQuit.{COLORS.RESET}")
+        return
 
     if password != confirm_password:
         print(f"{COLORS.FAIL}Passwords do not match!{COLORS.RESET}")
@@ -113,11 +118,18 @@ def menu():
 
         try:
             choice = int(input(f"{COLORS.OKGREEN}> Choice: {COLORS.OKCYAN}"))
+
         except ValueError:
+            clear_screen()
             print(f"\n{COLORS.FAIL}Invalid input! Numbers only.{COLORS.RESET}")
             continue
 
-        os.system('cls' if os.name == 'nt' else 'clear')
+        except KeyboardInterrupt:
+            clear_screen()
+            print(f"{COLORS.FAIL}\nQuit.{COLORS.RESET}\n")
+            return
+
+        clear_screen()
 
         if choice == 1:
             print_users()
@@ -132,13 +144,14 @@ def menu():
             signup_user()
 
         elif choice == 0:
-            print("")
-            break
+            print(f"{COLORS.FAIL}\nQuit.{COLORS.RESET}\n")
+            exit()
         
         else:
             print(f"\n{COLORS.FAIL}Invalid input!{COLORS.RESET}")
 
 # Start the menu
+clear_screen()
 menu()
 
 # Pop application context

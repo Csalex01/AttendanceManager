@@ -11,6 +11,9 @@
 #                              --------------- OR (SUM)
 #                               52 - 00110100
 
+
+import os
+
 DEPARTMENTS = {
   "APPLIED_LINGUISTICS": 
   {
@@ -67,3 +70,6 @@ class COLORS:
     RESET = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+def clear_screen():
+  os.system('cls' if os.name == 'nt' else 'clear')
