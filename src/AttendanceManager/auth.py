@@ -41,6 +41,8 @@ def signup():
       print(f"Confirm Password: {confirm_password}")
       print(f"User Type: {user_type}")
 
+      # TODO Check for existing user.
+
       # TODO Check for input validity (length, format, etc...)
 
       # Create the new user
@@ -95,6 +97,11 @@ def login():
 
         # If the password is incorrect, reload the page.
         return redirect(url_for("auth.login"))
+
+    else:
+
+      # If user does not exist, redirect to signup
+      return redirect(url_for("auth.login"))
 
   # GET request handler
   else:
