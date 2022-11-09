@@ -77,7 +77,7 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="Contact" href="{{ url_for('general.profile') }}">
               <i class="bi bi-person-fill"></i>
-              {{current_user.FirstName}} {{ current_user.LastName }}
+              {{ current_user.FirstName }} {{ current_user.LastName }}
             </a>
           </li>
 
@@ -103,13 +103,11 @@
 
 
 <style>
-
-  
   body {
     background-image: url("{{ url_for('static', filename='background.jpg') }}");
     background-repeat: no-repeat;
-    background-attachment: fixed; 
-    background-size: cover; 
+    background-attachment: fixed;
+    background-size: cover;
     position: relative;
     min-height: 60vh;
     color: black;
