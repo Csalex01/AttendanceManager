@@ -1,5 +1,5 @@
 from AttendanceManager import db, app
-from AttendanceManager.models import Teachers, Departments, CourseTypes
+from AttendanceManager.models import *
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -40,6 +40,43 @@ def init_database():
     db.session.add(HORTICULTURE)
     db.session.add(MATHEMATICS_INFORMATICS)
     db.session.add(ELECTRICAL_ENGINEERING)
+
+    #StudyProgram
+    HORTICULTURAL_ENGINEERING = StudyProgram(
+        StudyProgramID=1, DepartmentID=8, StudyProgramName="Horticultural Engineering")
+    AUTOMATION_AND_APPLIED_INFORMATICS = StudyProgram(
+        StudyProgramID=2, DepartmentID=32, StudyProgramName="Automation and Applied Informatics")
+    COMPUTER_SCIENCE = StudyProgram(
+        StudyProgramID=3, DepartmentID=32, StudyProgramName="Computer Science")
+    COMMUNICATION_AND_PUBLIC_RELATIONS = StudyProgram(
+        StudyProgramID=4, DepartmentID=2, StudyProgramName="Communication and Public Relations")
+    INFORCMATICS = StudyProgram(
+        StudyProgramID=5, DepartmentID=32, StudyProgramName="Informatics")
+    LANDSCAPE_ARCHITECTURE = StudyProgram(
+        StudyProgramID=6, DepartmentID=8, StudyProgramName="Landscape Architecture")
+    MACHINE_MANUFACTURINIG_ENGINEERING = StudyProgram(
+        StudyProgramID=7, DepartmentID=16, StudyProgramName="Machine Manufacturinig Engineering")
+    MECHATRONICS = StudyProgram(
+        StudyProgramID=8, DepartmentID=16, StudyProgramName="Mechatronics")
+    PUBLIC_HEALTH_SYSTEMS_AND_TECHNOLOGIES = StudyProgram(
+        StudyProgramID=9, DepartmentID=2, StudyProgramName="Public Health Services and Policies")
+    TELECOMMUNICATION_SYSTEMS_AND_TECHNOLOGIES = StudyProgram(
+        StudyProgramID=10, DepartmentID=32, StudyProgramName="Telecommunication Systems and Technologies")
+    TRANSLATEION_AND_INTERPRETING_STUDIES = StudyProgram(
+        StudyProgramID=11, DepartmentID=1, StudyProgramName="Translateion and Interpreting Studies")
+
+    db.session.add(HORTICULTURAL_ENGINEERING)
+    db.session.add(AUTOMATION_AND_APPLIED_INFORMATICS)
+    db.session.add(COMMUNICATION_AND_PUBLIC_RELATIONS)
+    db.session.add(INFORCMATICS)
+    db.session.add(LANDSCAPE_ARCHITECTURE)
+    db.session.add(MACHINE_MANUFACTURINIG_ENGINEERING)
+    db.session.add(MECHATRONICS)
+    db.session.add(PUBLIC_HEALTH_SYSTEMS_AND_TECHNOLOGIES)
+    db.session.add(TELECOMMUNICATION_SYSTEMS_AND_TECHNOLOGIES)
+    db.session.add(TRANSLATEION_AND_INTERPRETING_STUDIES)
+
+    
 
     # CourseTypes
     LECTURE = CourseTypes(CourseTypeID=1, CourseTypeName="Lecture")
