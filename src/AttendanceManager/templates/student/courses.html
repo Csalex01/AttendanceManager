@@ -4,9 +4,10 @@
 
 {% block content %}
 
-<h1>My Courses</h1>
+<div class="row panel mt-5">
 
-<div class="row mt-5">
+  <h1 class="mb-5">My Courses</h1>
+
 
   <div class="col-3 menu">
     <h2>Menu</h2>
@@ -106,6 +107,15 @@
 
   .menu {
     border-right: 1px solid black;
+  }
+
+  .panel {
+    background: rgba(245, 245, 245, 0.9);
+    padding: 20px;
+    border-radius: 20px;
+
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   }
 </style>
 
