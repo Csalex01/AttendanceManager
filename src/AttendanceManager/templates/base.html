@@ -14,12 +14,22 @@
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
           crossorigin="anonymous"></script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+  <!-- Custom Favicon -->
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='logo.png') }}">
+
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a href="{{ url_for('general.index') }}" class="navbar-brand">AttendanceManager </a>
+      <a href="{{ url_for('general.index') }}" class="navbar-brand">
+        <img src="{{ url_for('static', filename='logo.png') }}" height="50px" alt="Logo">
+        AttendanceManager
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#content"
               aria-controls="content" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,17 +39,19 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.contact') }}">Contact</a>
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.contact') }}">
+              <i class="bi bi-envelope-fill"></i>
+              Contact
+            </a>
           </li>
 
           {% if current_user.is_authenticated == True %}
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.courses') }}">My Courses</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.attendance') }}">Attendance</a>
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('general.courses') }}">
+              <i class="bi bi-graph-down"></i>
+              My Courses
+            </a>
           </li>
 
           {% endif %}
@@ -63,11 +75,17 @@
           {% if current_user.is_authenticated == True %}
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="Courses" href="{{ url_for('auth.logout') }}">Log Out</a>
+            <a class="nav-link" aria-current="Contact" href="{{ url_for('general.profile') }}">
+              <i class="bi bi-person-fill"></i>
+              {{current_user.FirstName}} {{ current_user.LastName }}
+            </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" aria-current="Contact" href="{{ url_for('general.profile') }}">Profile</a>
+            <a class="nav-link" aria-current="Courses" href="{{ url_for('auth.logout') }}">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Log Out
+            </a>
           </li>
 
           {% endif %}
@@ -77,9 +95,20 @@
     </div>
   </nav>
 
-  <div class="container mt-3">
-    {% block content %}{% endblock content %}
+  <div class="container mt-5">
+    {% block content %} {% endblock content %}
   </div>
 </body>
+
+<style>
+  nav {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.95);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-item {
+    margin-left: 20px;
+  }
+</style>
 
 </html>

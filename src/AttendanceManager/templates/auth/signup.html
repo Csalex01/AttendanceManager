@@ -3,7 +3,7 @@
 {% block title %} Signup {% endblock title %}
 
 {% block content %}
-<fieldset class="form-group panel mt-3">
+<fieldset class="form-group panel mt-3 bg-light">
   <legend class="border-bottom mb-4">Sign Up!</legend>
 
   <form method="POST">
@@ -70,9 +70,42 @@
       </div>
     </div>
 
+    <label for="departments" class="form-label">Departments</label>
+    <div class="input-group mb-3">
+      <select class="form-select" id="inputGroupSelect01">
+        <option selected>Departments</option>
+        <option value="1">Applied Linguistics</option>
+        <option value="2">Electrical Engineering</option>
+        <option value="3">Horticulture</option>
+        <option value="4">Mathematics & Informatics</option>
+        <option value="5">Mechanical Engineering</option>
+      </select>
+    </div>
+  
+    <label for="study_program" class="form-label">Study Program</label>
+    <div class="input-group mb-3">
+      <select class="form-select" id="inputGroupSelect01">
+        <option selected>Study Program</option>
+        <option value="1">Agricultural Engineering</option>
+        <option value="2">Automation and Applied Informatics</option>
+        <option value="3">Computer Science</option>
+        <option value="4">Communication and Public Relations</option>
+        <option value="5">Forestry</option>
+        <option value="6">Horticultural Engineering</option>
+        <option value="7">Informatics</option>
+        <option value="8">Landscape Architecture</option>
+        <option value="9">Machine Manufacturinig Engineering</option>
+        <option value="10">Mechatronics</option>
+        <option value="11">Public Health Services and Policies</option>
+        <option value="12">Telecommunication Systems and Technologies</option>
+        <option value="13">Translateion and Interpreting Studies</option>
+
+      </select>
+    </div>
+
     <div class="row mb-3">
       <div class="form-group col">
-        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-success">Register</button>
       </div>
     </div>
 
@@ -84,72 +117,22 @@
     </small>
   </div>
 
+
 </fieldset>
 
-<!--
-  <section class="vh-100 bg-image">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 1rem;">
-            <div class="card-body p-5">
-              <h2 class=" fw-bold text-uppercase text-center mb-5">Sign Up</h2>
-
-              <form>
-                <div class="form-outline text-center mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example1cg">First Name</label>
-                </div>
-
-                <div class="form-outline text-center mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example1cg">Last Name</label>
-                </div>
-
-                <div class="form-outline text-center mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
-                </div>
-
-                <div class="form-outline text-center mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Password</label>
-                </div>
-
-                <div class="form-outline text-center mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div>
-
-                <div class="form-outline text-center mb-4">
-                  <input type="text" id="form3Example4cdg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cdg">Neptun Code</label>
-                </div>
-
-                <div class="d-flex justify-content-center">
-                  <button type="button"
-                    class="btn btn-outline-success btn-lg px-5">Sign Up</button>
-                </div>
-
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
-                    class="fw-bold text-body"><u>Login here</u></a></p>
-
-              </form>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
 
 <style>
   .panel {
     margin: 0 auto;
     max-width: 500px;
+  }
+  fieldset {
+    padding: 15px;
+
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.95);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+
+    border-radius: 10px;
   }
 </style>
 {% endblock content %}
