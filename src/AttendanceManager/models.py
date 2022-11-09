@@ -11,6 +11,8 @@ class Users(db.Model, UserMixin):
     FirstName = db.Column(db.String(50), nullable=False)
     LastName = db.Column(db.String(50), nullable=False)
     UserType = db.Column(db.Boolean, default=False)
+    DepartmentID = db.Column(db.Integer, nullable=False)
+    StudyProgramID = db.Column(db.Integer)
 
     # This is required for getting the ID (NeptunCode) to log the user in
     def get_id(self):
@@ -57,6 +59,13 @@ class Teachers(db.Model):
 class Departments(db.Model):
     DepartmentID = db.Column(db.Integer, primary_key=True)
     DepartmentName = db.Column(db.String(50), unique=True, nullable=False)
+
+# Model for Study Program
+
+class StudyProgram(db.Model):
+    StudyProgramID = db.Column(db.Integer, primary_key=True)
+    DepartmentID = db.Column(db.Integer, nullable=False)
+    StudyProgramName = db.Column(db.String(50), unique=True, nullable=False)
 
 # Model for CourseTypes
 

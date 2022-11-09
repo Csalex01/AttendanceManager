@@ -3,7 +3,7 @@
 {% block title %} Signup {% endblock title %}
 
 {% block content %}
-<fieldset class="form-group panel mt-3 bg-light">
+<fieldset class="form-group panel bg-light">
   <legend class="border-bottom mb-4">Sign Up!</legend>
 
   <form method="POST">
@@ -70,6 +70,26 @@
       </div>
     </div>
 
+    <label for="departments" class="form-label">Departments</label>
+    <div class="input-group mb-3">
+      <select class="form-select" name="department">
+        <option value="0" disabled selected hidden>Select your department</option>
+        {% for department in departments %}
+        <option value="{{ department.DepartmentID }}">{{ department.DepartmentName }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <label for="study_program" class="form-label">Study Program</label>
+    <div class="input-group mb-3">
+      <select class="form-select" name="study_program">
+        <option value="0" disabled selected hidden>Select your study program</option>
+        {% for study_program in study_programs %}
+        <option value="{{ study_program.StudyProgramID }}">{{ study_program.StudyProgramName }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
     <div class="row mb-3">
       <div class="form-group col">
         <button class="btn btn-success">Register</button>
@@ -84,6 +104,7 @@
     </small>
   </div>
 
+
 </fieldset>
 
 
@@ -92,6 +113,7 @@
     margin: 0 auto;
     max-width: 500px;
   }
+
   fieldset {
     padding: 15px;
 
