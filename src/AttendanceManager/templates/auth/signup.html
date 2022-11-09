@@ -3,7 +3,7 @@
 {% block title %} Signup {% endblock title %}
 
 {% block content %}
-<fieldset class="form-group panel mt-3 bg-light">
+<fieldset class="form-group panel bg-light">
   <legend class="border-bottom mb-4">Sign Up!</legend>
 
   <form method="POST">
@@ -72,34 +72,21 @@
 
     <label for="departments" class="form-label">Departments</label>
     <div class="input-group mb-3">
-      <select class="form-select" id="inputGroupSelect01">
-        <option selected>Departments</option>
-        <option value="1">Applied Linguistics</option>
-        <option value="2">Electrical Engineering</option>
-        <option value="3">Horticulture</option>
-        <option value="4">Mathematics & Informatics</option>
-        <option value="5">Mechanical Engineering</option>
+      <select class="form-select" name="department">
+        <option value="0" disabled selected hidden>Select your department</option>
+        {% for department in departments %}
+        <option value="{{ department.DepartmentID }}">{{ department.DepartmentName }}</option>
+        {% endfor %}
       </select>
     </div>
-  
+
     <label for="study_program" class="form-label">Study Program</label>
     <div class="input-group mb-3">
-      <select class="form-select" id="inputGroupSelect01">
-        <option selected>Study Program</option>
-        <option value="1">Agricultural Engineering</option>
-        <option value="2">Automation and Applied Informatics</option>
-        <option value="3">Computer Science</option>
-        <option value="4">Communication and Public Relations</option>
-        <option value="5">Forestry</option>
-        <option value="6">Horticultural Engineering</option>
-        <option value="7">Informatics</option>
-        <option value="8">Landscape Architecture</option>
-        <option value="9">Machine Manufacturinig Engineering</option>
-        <option value="10">Mechatronics</option>
-        <option value="11">Public Health Services and Policies</option>
-        <option value="12">Telecommunication Systems and Technologies</option>
-        <option value="13">Translateion and Interpreting Studies</option>
-
+      <select class="form-select" name="study_program">
+        <option value="0" disabled selected hidden>Select your study program</option>
+        {% for study_program in study_programs %}
+        <option value="{{ study_program.StudyProgramID }}">{{ study_program.StudyProgramName }}</option>
+        {% endfor %}
       </select>
     </div>
 
@@ -126,6 +113,7 @@
     margin: 0 auto;
     max-width: 500px;
   }
+
   fieldset {
     padding: 15px;
 

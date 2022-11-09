@@ -1,6 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 
+from AttendanceManager.models import *
+
 # Initialize blueprint
 general = Blueprint("general", __name__)
 
@@ -46,7 +48,14 @@ def enrolled_students():
 @general.route("/profile")
 @login_required
 def profile():
-  return render_template("general/profile.html")
+  department = Departments.query.filter_by(DepartmentID=current_user.DepartmentID).first()
+  study_program = StudyProgram.query.filter_by(StudyProgramID=current_user.StudyProgramID).first()
+
+  return render_template("general/profile.html", 
+    user=current_user,
+    department=department,
+    study_program=study_program
+  )
 
 @general.route("/contact")
 def contact():
