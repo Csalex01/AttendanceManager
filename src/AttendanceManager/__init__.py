@@ -27,7 +27,7 @@ app.register_blueprint(general, url_prefix="/")
 app.register_blueprint(auth, url_prefix="/")
 
 # Import models
-from .models import Users, Courses, EnrolledStudents
+from .models import *
 
 # Initialize Database
 db.init_app(app=app)
