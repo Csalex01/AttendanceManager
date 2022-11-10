@@ -8,7 +8,6 @@
 
   <h1 class="mb-5">My Courses</h1>
 
-
   <div class="col-3 menu">
     <h2>Menu</h2>
 
@@ -23,7 +22,43 @@
   </div>
 
   <div class="col-9">
+
+    <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      New Course
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="form-group">
+                <label for="course_code">Course Code</label>
+                <div class="input-group has-validation">
+                  <input type="text"
+                         name="course_code"
+                         id="course_code"
+                         class="form-control"
+                         placeholder="ABCDE1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Enroll</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <h2>Fizika II.</h2>
+
     <table class="table table-striped">
       <thead>
         <tr>
@@ -117,6 +152,7 @@
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 1);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   }
+
 </style>
 
 {% endblock content %}
