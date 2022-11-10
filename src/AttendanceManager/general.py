@@ -29,7 +29,9 @@ def courses():
 
   # Else if the current user is a student
   elif current_user.UserType == 0:
-    return render_template("student/courses.html")
+    courses = ["Physics II", "Electronics II.", "Databases I."]
+
+    return render_template("student/courses.html", courses=courses)
 
   # If neither, redirect to login
   else:
