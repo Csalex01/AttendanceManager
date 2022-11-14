@@ -50,9 +50,39 @@ def print_departments():
         print(f"\tName: {department.DepartmentName}")
         print("")
 
+def print_courses():
+    courses = Courses.query.all()
+
+    print(f"\n{COLORS.OKGREEN}Courses\n*--------*{COLORS.RESET}")
+
+    for idx, course in enumerate(courses):
+        teacher = Users.query.filter_by(NeptunCode=course.TeacherCode).first()
+        course_type = CourseTypes.query.filter_by(CourseTypeID=course.CourseType).first()
+
+        print(f"{COLORS.OKCYAN}{idx + 1}. CourseID: {course.CourseID}{COLORS.RESET}")
+        print(f"\tName: {course.Name}")
+        
+        print(f"\tTeacher: {course.TeacherCode}")
+        if teacher != None:
+            print(f"\t\tEmail: {teacher.Email}")
+            print(f"\t\tName: {teacher.FirstName} {teacher.LastName}")
+
+        print(f"\tCourse Type: {course_type.CourseTypeName}")
+
+        print("")
+
 # Methods for inserting into databaase
 def signup_user():
     print(f"\n{COLORS.OKGREEN}Sign Up User\n*--------*{COLORS.RESET}")
+
+    departments = Departments.query.all()
+
+    print(f"\n{COLORS.OKGREEN}Departments\n*--------*{COLORS.RESET}")
+
+    for idx, department in enumerate(departments):
+        print(f"\t{COLORS.OKCYAN}{idx + 1}. {department.DepartmentName} {COLORS.RESET}(ID: {department.DepartmentID})")
+
+    print("")
 
     try:
         neptun_code = input(f"{COLORS.OKCYAN}> Neptun Code:{COLORS.RESET} ")
@@ -61,6 +91,7 @@ def signup_user():
         confirm_password = getpass(f"{COLORS.OKCYAN}> Confirm Password:{COLORS.RESET} ")
         first_name = input(f"{COLORS.OKCYAN}> First Name:{COLORS.RESET} ")
         last_name = input(f"{COLORS.OKCYAN}> Last Name:{COLORS.RESET} ")
+        department_id = input(f"{COLORS.OKCYAN}> Department ID:{COLORS.RESET} ")
         user_type = 0
 
     except KeyboardInterrupt:
@@ -93,6 +124,7 @@ def signup_user():
         Password=password,
         FirstName=first_name,
         LastName=last_name,
+        DepartmentID=department_id,
         UserType=user_type
     )
 
@@ -100,6 +132,58 @@ def signup_user():
     db.session.commit()
 
     print(f"{COLORS.OKGREEN}\nUser {neptun_code} successfully added to database!{COLORS.RESET}")
+
+def create_course():
+    print(f"\n{COLORS.OKGREEN}Create Course\n*--------*{COLORS.RESET}")
+
+    departments = Departments.query.all()
+    course_types = CourseTypes.query.all()
+    teachers = Teachers.query.all()
+
+    print(f"\n{COLORS.OKGREEN}Departments\n*--------*{COLORS.OKGREEN}")
+    for idx, department in enumerate(departments):
+        print(f"\t{COLORS.OKCYAN}{idx + 1}. {department.DepartmentName} {COLORS.RESET}(ID: {department.DepartmentID})")
+
+    print(f"\n{COLORS.OKGREEN}Course Types\n*--------*{COLORS.OKGREEN}")
+    for idx, course_type in enumerate(course_types):
+        print(f"\t{COLORS.OKCYAN}{idx + 1}. {course_type.CourseTypeName} {COLORS.RESET}(ID: {course_type.CourseTypeID})")
+
+
+    print(f"\n{COLORS.OKGREEN}Teachers\n*--------*{COLORS.RESET}")
+    for idx, teacher in enumerate(teachers):
+        user = Users.query.filter_by(NeptunCode=teacher.NeptunCode).first()
+
+        print(f"\t{COLORS.OKCYAN}{idx + 1}. {teacher.NeptunCode}{COLORS.RESET}")
+
+        if user != None:
+            print(f"\t\tEmail: {user.Email}")
+            print(f"\t\tName: {user.FirstName} {user.LastName}")
+
+    print("")
+
+    try:
+        course_id = input(f"{COLORS.OKCYAN}> Course ID:{COLORS.RESET} ")
+        teacher_code = input(f"{COLORS.OKCYAN}> Teacher's Code:{COLORS.RESET} ")
+        name = input(f"{COLORS.OKCYAN}> Name:{COLORS.RESET} ")
+        department = int(input(f"{COLORS.OKCYAN}> Department ID:{COLORS.RESET} "))
+        course_type = int(input(f"{COLORS.OKCYAN}> Course Type ID:{COLORS.RESET} "))
+
+        course = Courses(
+            CourseID=course_id,
+            TeacherCode=teacher_code,
+            Name=name,
+            DepartmentID=department,
+            CourseType=course_type
+        )
+
+        db.session.add(course)
+        db.session.commit()
+
+        print(f"{COLORS.OKGREEN}\nCourse {course_id} successfully added to the database!{COLORS.RESET}")
+
+    except KeyboardInterrupt:
+        print(f"\n{COLORS.FAIL}\nQuit.{COLORS.RESET}")
+        return    
 
 # Method for menu
 def menu():
@@ -110,8 +194,10 @@ def menu():
         print(f"{COLORS.OKGREEN}1.){COLORS.RESET} Print Users")
         print(f"{COLORS.OKGREEN}2.){COLORS.RESET} Print Teachers")
         print(f"{COLORS.OKGREEN}3.){COLORS.RESET} Print Departments")
+        print(f"{COLORS.OKGREEN}4.){COLORS.RESET} Print Courses")
         print(f"{COLORS.WARNING}*-----* Add to Database *-----*{COLORS.RESET}")
-        print(f"{COLORS.OKGREEN}4.){COLORS.RESET} Sign Up User")
+        print(f"{COLORS.OKGREEN}5.){COLORS.RESET} Sign Up User")
+        print(f"{COLORS.OKGREEN}6.){COLORS.RESET} Create Course")
         print(f"{COLORS.WARNING}*-----------------------------*{COLORS.RESET}")
         print(f"{COLORS.OKGREEN}0.){COLORS.RESET} Exit")
         print(f"{COLORS.OKCYAN}*--------------------------------------------------*{COLORS.RESET}")
@@ -141,7 +227,13 @@ def menu():
             print_departments()
 
         elif choice == 4:
+            print_courses()
+
+        elif choice == 5:
             signup_user()
+
+        elif choice == 6:
+            create_course()
 
         elif choice == 0:
             print(f"{COLORS.FAIL}\nQuit.{COLORS.RESET}\n")
