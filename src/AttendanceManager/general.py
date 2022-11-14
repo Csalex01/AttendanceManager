@@ -29,7 +29,7 @@ def courses():
 
   # Else if the current user is a student
   elif current_user.UserType == 0:
-    courses = ["Physics II", "Electronics II.", "Databases I."]
+    courses = ["Physics II", "Electronics II.", "Databases I.", "Computer Architecture", "System Identification", "Optimization Techniques I."]
 
     return render_template("student/courses.html", courses=courses)
 
