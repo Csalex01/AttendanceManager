@@ -25,7 +25,9 @@ def courses():
 
   # If the current user is a teacher
   if current_user.UserType == 1:
-    return render_template("teacher/courses.html")
+
+      courses = ["Physics II", "Electronics II.", "Databases I.", "Computer Architecture", "System Identification", "Optimization Techniques I."]
+      return render_template("teacher/courses.html", courses=courses)
 
   # Else if the current user is a student
   elif current_user.UserType == 0:
