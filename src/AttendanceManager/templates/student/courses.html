@@ -4,25 +4,61 @@
 
 {% block content %}
 
-<h1>My Courses</h1>
+<div class="row panel mt-5">
 
-<div class="row mt-5">
+  <h1 class="mb-5">Trab Antal</h1>
 
   <div class="col-3 menu">
-    <h2>Menu</h2>
-
+    <div class="list-group">
+      <button class="list-group-item list-group-item-action bg-primary text-white" data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop">Enroll in New Course</button>
+    </div>
+    
     <hr>
 
-    <div class="d-grid gap-2">
-      <button class="btn btn-success" type="button">Fizika II.</button>
-      <button class="btn btn-success" type="button">Villamosságtan II.</button>
-      <button class="btn btn-success" type="button">Adatbázis I.</button>
+    <div class="list-group list-group-numbered">
+      {% for course in courses %}
+      <button class="list-group-item list-group-item-action bg-success text-white mb-2">{{ course }}</button>
+      {% endfor %}
     </div>
 
   </div>
 
   <div class="col-9">
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Enroll in New Course</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="form-group">
+                <label for="course_code">Enter Course Code</label>
+                <div class="input-group has-validation">
+                  <input type="text"
+                         name="course_code"
+                         id="course_code"
+                         class="form-control"
+                         placeholder="ABCDE1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Enroll</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <h2>Fizika II.</h2>
+
     <table class="table table-striped">
       <thead>
         <tr>
@@ -100,12 +136,17 @@
 </div>
 
 <style>
-  .card {
-    background: #EAEAEA;
+  .menu {
+    border-right: 1px solid gray;
   }
 
-  .menu {
-    border-right: 1px solid lightgray;
+  .panel {
+    background: rgba(245, 245, 245, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   }
 </style>
 

@@ -1,5 +1,5 @@
 from . import db
-from .models import Users, Attendance, CourseDates, Courses, EnrolledStudents, Teachers
+from .models import *
 
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_user, logout_user
@@ -22,6 +22,8 @@ def signup():
       last_name = request.form.get("last_name")
       password = request.form.get("password")
       confirm_password = request.form.get("confirm_password")
+      department = request.form.get("department")
+      study_program = request.form.get("study_program")
       user_type = 0
       
       # Query the teacher's database
@@ -52,7 +54,9 @@ def signup():
         Password=password,
         FirstName=first_name,
         LastName=last_name,
-        UserType=user_type
+        UserType=user_type,
+        DepartmentID=department,
+        StudyProgramID=study_program
       )
 
       # Add new user to the session
@@ -69,7 +73,14 @@ def signup():
 
   # GET request handler
   else:
-    return render_template("auth/signup.html")
+    departments = Departments.query.all()
+    study_programs = StudyProgram.query.all()
+
+    return render_template(
+      "auth/signup.html", 
+      departments=departments, 
+      study_programs=study_programs
+    )
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
