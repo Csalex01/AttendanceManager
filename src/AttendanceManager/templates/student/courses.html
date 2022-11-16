@@ -6,14 +6,14 @@
 
 <div class="row panel mt-5">
 
-  <h1 class="mb-5">My Courses</h1>
+  <h1 class="mb-5">Trab Antal</h1>
 
   <div class="col-3 menu">
     <div class="list-group">
       <button class="list-group-item list-group-item-action bg-primary text-white" data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop">Enroll in Course</button>
+              data-bs-target="#staticBackdrop">Enroll in New Course</button>
     </div>
-
+    
     <hr>
 
     <div class="list-group list-group-numbered">
@@ -21,14 +21,6 @@
       <button class="list-group-item list-group-item-action bg-success text-white mb-2">{{ course }}</button>
       {% endfor %}
     </div>
-
-    <!-- <button class="btn btn-success" type="button">Fizika II.</button>
-    <button class="btn btn-success" type="button">Villamosságtan II.</button>
-    <button class="btn btn-success" type="button">Adatbázis I.</button> -->
-
-
-
-    <!-- </div> -->
 
   </div>
 
@@ -40,13 +32,13 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Enroll in New Course</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row mb-3">
               <div class="form-group">
-                <label for="course_code">Course Code</label>
+                <label for="course_code">Enter Course Code</label>
                 <div class="input-group has-validation">
                   <input type="text"
                          name="course_code"
@@ -58,7 +50,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-success">Enroll</button>
           </div>
         </div>
