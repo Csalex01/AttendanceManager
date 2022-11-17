@@ -43,7 +43,7 @@
       <thead class="table-dark">
         <tr>
           <th>Nr. #</th>
-          <td>Date</td>
+          <td>Date & Time</td>
           <td>Type</td>
           <td>Attended</td>
           <td>Missed</td>
@@ -170,6 +170,15 @@
             </div>
           </div>
 
+          <div class="row mb-3">
+            <div class="form-group">
+              <label for="course_time" class="form-label">Time</label>
+              <div class="input-group">
+                <input type="time" name="course_time" min="8:00" max="18:30">
+              </div>
+            </div>
+          </div>
+
           <input type="hidden" name="request_type" value="create_occasion">
 
         </div>
@@ -187,7 +196,7 @@
 </div>
 
 <style>
-  input[type="date"] {
+  input[type="date"], input[type="time"] {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid lightgray;
