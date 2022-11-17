@@ -36,8 +36,6 @@
       {{ selected_course.Name }}
 
       <div class="float-end">
-        <button class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#newCourseModal">Show QR Code</button>
         <button class="btn btn-success" data-bs-toggle="modal"
                 data-bs-target="#newOccasion">Create New Occasion</button>
       </div>
@@ -46,14 +44,14 @@
 
     </h2>
 
-    <table class="table table-striped table-hover table-bordered">
+    <table style="background-color: white;" class="table table-striped table-hover table-bordered text-center">
       <thead class="table-dark">
         <tr>
-          <th>Nr. #</th>
+          <th>Occasion #</th>
           <td>Date & Time</td>
           <td>Type</td>
+          <td>Total</td>
           <td>Attended</td>
-          <td>Missed</td>
           <td>Actions</td>
         </tr>
       </thead>
@@ -70,6 +68,8 @@
               <a class="btn btn-primary">
                 <i class="bi bi-person-lines-fill"></i>
               </a>
+              <a class="btn btn-success" data-bs-toggle="modal"
+                data-bs-target="#newCourseModal"><i class="bi bi-qr-code"></i></a>
               <a class="btn btn-danger">
                 <i class="bi bi-pencil-square"></i>
               </a>
@@ -219,7 +219,6 @@
   }
 
   .panel {
-    background: rgba(245, 245, 245, 0.9);
     padding: 15px;
     border-radius: 10px;
 
