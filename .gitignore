@@ -131,3 +131,9 @@ dmypy.json
 # Custom
 database.db
 __pycache__
+.idea/AttendanceManager.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
