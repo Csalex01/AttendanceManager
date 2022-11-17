@@ -46,14 +46,12 @@ def courses():
                 for idx, token in enumerate(course_code):
                   if idx > 2:
                     break
-                  
+
                   generated_code = generated_code + token[0:3]
 
                 n = len(generated_code)
                 for i in range(0, 10 - n):
                     generated_code = generated_code + str(randint(0, 9))
-
-                print(generated_code)
 
                 sum = 0
                 for department in departments:
