@@ -1,4 +1,5 @@
 from datetime import datetime
+from random import randint
 
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
@@ -27,19 +28,41 @@ def courses():
 
     # Get the selected course
     selected_course = request.args.get("selected_course")
-    print(selected_course)
+    # print(selected_course)
 
     # POST request handler
     if request.method == "POST":
+        
         if current_user.UserType == 1:
 
             if request.form.get("request_type") == "create_course":
                 name = request.form.get("course_name")
+                departments = request.form.getlist("course_department")
+
+                course_code = name.replace('.', '')
+                course_code = course_code.split(" ")
+                
+                generated_code = ""
+
+                for idx, token in enumerate(course_code):
+                  if idx > 2:
+                    break
+
+                  generated_code = generated_code + token[0:3]
+
+                n = len(generated_code)
+                for i in range(0, 10 - n):
+                    generated_code = generated_code + str(randint(0, 9))
+
+                sum = 0
+                for department in departments:
+                  sum = sum + int(department)
 
                 new_course = Courses(
                     TeacherCode=current_user.NeptunCode,
                     Name=name,
-                    DepartmentID=current_user.DepartmentID
+                    DepartmentID=sum,
+                    CourseCode=generated_code
                 )
 
                 db.session.add(new_course)
@@ -64,8 +87,19 @@ def courses():
                 db.session.add(new_course_date)
                 db.session.commit()
 
-            return redirect(url_for("general.courses", selected_course=selected_course))
-        
+        else:
+            if request.form.get("request_type") == "enroll_course":
+              course = Courses.query.filter_by(CourseCode=request.form.get("course_code")).first()
+
+              enrolled_student = EnrolledStudents(
+                StudentCode=current_user.NeptunCode,
+                CourseID=course.CourseID,
+                Approved=False
+              )
+
+              db.session.add(enrolled_student)
+              db.session.commit()
+
         return redirect(url_for("general.index"))
 
     # GET request handler
@@ -75,6 +109,7 @@ def courses():
         if current_user.UserType == 1:
             courses = Courses.query.filter_by(TeacherCode=current_user.NeptunCode)
             course_types = CourseTypes.query.all()
+            departments = Departments.query.all()
 
             # If the user has courses, but did not select one, select the first course
             if courses.count() != 0 and selected_course == None:
@@ -93,15 +128,34 @@ def courses():
                 courses=courses, 
                 course_types=course_types, 
                 selected_course=selected_course,
-                occasions=occasions)
+                occasions=occasions,
+                departments=departments)
 
         # Else if the current user is a student
         elif current_user.UserType == 0:
-            courses = ["Physics II", "Electronics II.", "Databases I.", "Computer Architecture", "System Identification", "Optimization Techniques I."]
+            enrolled_courses = EnrolledStudents.query.filter_by(StudentCode=current_user.NeptunCode)
+            courses = []
+
+            for course in enrolled_courses:
+              courses.append(Courses.query.filter_by(CourseID=course.CourseID).first())
+
+            if enrolled_courses.count() != 0 and selected_course == None:
+              return redirect(url_for("general.courses", selected_course=enrolled_courses[0].CourseID))
+            else:
+              selected_course = Courses.query.filter_by(CourseID=selected_course).first()
+
+            if selected_course != None:
+              approved = (EnrolledStudents.query.filter_by(
+                StudentCode=current_user.NeptunCode,
+                CourseID=selected_course.CourseID
+              ).first()).Approved
+            else:
+              approved = False
 
             return render_template("student/courses.html", 
                 courses=courses, 
-                selected_course=selected_course
+                selected_course=selected_course,
+                approved=approved
             )
 
         # If neither, redirect to login
