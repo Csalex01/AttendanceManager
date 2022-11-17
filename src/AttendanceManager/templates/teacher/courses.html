@@ -6,7 +6,10 @@
 
 <div class="row panel mt-5">
 
-  <h1 class="mb-5">My Courses</h1>
+  <h1 class="mb-5">
+    <i class="bi bi-graph-down"></i>
+    My Courses
+  </h1>
 
   <div class="col-3 menu">
     <div class="list-group">
@@ -31,22 +34,24 @@
     {% if selected_course != None %}
     <h2>
       {{ selected_course.Name }}
+
       <div class="float-end">
-        <button class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#newCourseModal">Show QR Code</button>
         <button class="btn btn-success" data-bs-toggle="modal"
                 data-bs-target="#newOccasion">Create New Occasion</button>
       </div>
+
+      <hr>
+
     </h2>
 
-    <table class="table table-striped table-hover table-bordered">
+    <table style="background-color: white;" class="table table-striped table-hover table-bordered text-center">
       <thead class="table-dark">
         <tr>
-          <th>Nr. #</th>
-          <td>Date</td>
+          <th>Occasion #</th>
+          <td>Date & Time</td>
           <td>Type</td>
+          <td>Total</td>
           <td>Attended</td>
-          <td>Missed</td>
           <td>Actions</td>
         </tr>
       </thead>
@@ -63,6 +68,8 @@
               <a class="btn btn-primary">
                 <i class="bi bi-person-lines-fill"></i>
               </a>
+              <a class="btn btn-success" data-bs-toggle="modal"
+                data-bs-target="#newCourseModal"><i class="bi bi-qr-code"></i></a>
               <a class="btn btn-danger">
                 <i class="bi bi-pencil-square"></i>
               </a>
@@ -170,6 +177,15 @@
             </div>
           </div>
 
+          <div class="row mb-3">
+            <div class="form-group">
+              <label for="course_time" class="form-label">Time</label>
+              <div class="input-group">
+                <input type="time" name="course_time" min="8:00" max="18:30">
+              </div>
+            </div>
+          </div>
+
           <input type="hidden" name="request_type" value="create_occasion">
 
         </div>
@@ -187,10 +203,15 @@
 </div>
 
 <style>
-  input[type="date"] {
+  input[type="date"], input[type="time"] {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid lightgray;
+  }
+
+  table {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
   }
 
   .menu {
@@ -198,7 +219,6 @@
   }
 
   .panel {
-    background: rgba(245, 245, 245, 0.9);
     padding: 15px;
     border-radius: 10px;
 

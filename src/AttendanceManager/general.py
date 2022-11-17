@@ -49,6 +49,9 @@ def courses():
                 course_type = int(request.form.get("course_type")) - 1
                 classroom = request.form.get("classroom")
                 course_date = request.form.get("course_date")
+                course_time = request.form.get("course_time")
+
+                course_date += f" {course_time}"
 
                 new_course_date = CourseDates(
                   CourseID=selected_course,
