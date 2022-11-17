@@ -22,6 +22,7 @@ class Users(db.Model, UserMixin):
 
 class Courses(db.Model):
     CourseID = db.Column(db.Integer, primary_key=True)
+    CourseCode = db.Column(db.String(10), unique=True)
     TeacherCode = db.Column(db.Integer, nullable=False)
     Name = db.Column(db.String(50), unique=True, nullable=False)
     DepartmentID = db.Column(db.Integer, nullable=False)
