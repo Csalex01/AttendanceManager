@@ -81,8 +81,8 @@ def init_database():
     # CourseTypes
     LECTURE = CourseTypes(CourseTypeID=1, CourseTypeName="Lecture")
     SEMINAR = CourseTypes(CourseTypeID=2, CourseTypeName="Seminar")
-    LAB = CourseTypes(CourseTypeID=4, CourseTypeName="Lab")
-    PROJECT = CourseTypes(CourseTypeID=8, CourseTypeName="Project")
+    LAB = CourseTypes(CourseTypeID=3, CourseTypeName="Lab")
+    PROJECT = CourseTypes(CourseTypeID=4, CourseTypeName="Project")
 
     db.session.add(LECTURE)
     db.session.add(SEMINAR)
