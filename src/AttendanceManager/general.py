@@ -32,6 +32,7 @@ def courses():
 
     # POST request handler
     if request.method == "POST":
+        
         if current_user.UserType == 1:
 
             if request.form.get("request_type") == "create_course":
@@ -86,6 +87,19 @@ def courses():
                 db.session.add(new_course_date)
                 db.session.commit()
 
+        else:
+            if request.form.get("request_type") == "enroll_course":
+              course = Courses.query.filter_by(CourseCode=request.form.get("course_code")).first()
+
+              enrolled_student = EnrolledStudents(
+                StudentCode=current_user.NeptunCode,
+                CourseID=course.CourseID,
+                Approved=False
+              )
+
+              db.session.add(enrolled_student)
+              db.session.commit()
+
         return redirect(url_for("general.index"))
 
     # GET request handler
@@ -125,9 +139,23 @@ def courses():
             for course in enrolled_courses:
               courses.append(Courses.query.filter_by(CourseID=course.CourseID).first())
 
+            if enrolled_courses.count() != 0 and selected_course == None:
+              return redirect(url_for("general.courses", selected_course=enrolled_courses[0].CourseID))
+            else:
+              selected_course = Courses.query.filter_by(CourseID=selected_course).first()
+
+            if selected_course != None:
+              approved = (EnrolledStudents.query.filter_by(
+                StudentCode=current_user.NeptunCode,
+                CourseID=selected_course.CourseID
+              ).first()).Approved
+            else:
+              approved = False
+
             return render_template("student/courses.html", 
                 courses=courses, 
-                selected_course=selected_course
+                selected_course=selected_course,
+                approved=approved
             )
 
         # If neither, redirect to login
