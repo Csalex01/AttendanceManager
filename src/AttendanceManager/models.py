@@ -22,10 +22,9 @@ class Users(db.Model, UserMixin):
 
 class Courses(db.Model):
     CourseID = db.Column(db.Integer, primary_key=True)
-    TeacherCode = db.Column(db.Integer, unique=True, nullable=False)
+    TeacherCode = db.Column(db.Integer, nullable=False)
     Name = db.Column(db.String(50), unique=True, nullable=False)
     DepartmentID = db.Column(db.Integer, nullable=False)
-    CourseType = db.Column(db.Integer, nullable=False)
 
 # Model for Enrolled Students
 
@@ -38,9 +37,11 @@ class EnrolledStudents(db.Model):
 
 class CourseDates(db.Model):
     OccasionID = db.Column(db.Integer, primary_key=True)
-    CourseID = db.Column(db.Integer, unique=True, nullable=False)
+    CourseID = db.Column(db.Integer, unique=False, nullable=False)
     Type = db.Column(db.Integer, nullable=False)
     Classroom = db.Column(db.Integer, nullable=False)
+    CourseType = db.Column(db.Integer, nullable=False)
+    Date = db.Column(db.String, nullable=False)
 
 # Model for Student Attendance
 
