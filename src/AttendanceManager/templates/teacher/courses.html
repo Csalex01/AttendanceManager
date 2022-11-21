@@ -36,9 +36,8 @@
       {{ selected_course.Name }}
 
       <div class="float-end">
-        <button class="btn btn-success" data-bs-toggle="modal"
-                data-bs-target="#newOccasion">Create New Occasion</button>
-        <button class="btn btn-primary">Enrolled Students</button>
+        <button class="btn btn-success" data-bs-toggle="modal"data-bs-target="#newOccasion">Create New Occasion</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrolledStudents">Enrolled Students</button>
       </div>
 
       <hr>
@@ -215,6 +214,68 @@
 
   </form>
 
+</div>
+
+<!-- Modal for Enrolled Students -->
+
+<div class="modal fade" id="enrolledStudents" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="enrolledStudentsLabel" aria-hidden="true">
+
+  <form method="POST">
+
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="enrolledStudentsLabel">Enrolled Students</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <table style="background-color: white;" class="table table-striped table-hover table-bordered text-center">
+            <thead class="table-dark">
+              <tr>
+                <td>Student</td>
+                <td class="col-8">Approved</td>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider text-center">
+              {% for student in enrolled_students %}
+              <tr>
+                <td>{{ student[1].FirstName }} {{ student[1].LastName }} ({{ student[0].StudentCode }})</td>
+                <td>
+                  {% if student[0].Approved %}
+                  <div class="form-switch">
+                    <span class="float me-5">Not Approved</span>
+                    <input role="switch" class="form-check-input" type="checkbox" name="{{ student[0].StudentCode }}" id="{{ student[0].StudentCode }}" checked>
+                    <span>Approved</span>
+                  </div>
+                  {%  else %}
+                  <div class="form-switch">
+                    <span class="me-5">Not Approved</span>
+                    <input role="switch" class="form-check-input" type="checkbox" name="{{ student[0].StudentCode }}" id="{{ student[0].StudentCode }}">
+                    <span>Approved</span>
+                  </div>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <input type="hidden" name="request_type" value="enroll_student">
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
 </div>
 
 <style>
