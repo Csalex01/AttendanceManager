@@ -120,16 +120,30 @@ def courses():
               selected_course = Courses.query.filter_by(CourseID=selected_course).first()
 
             occasions = None
+            enrolled_students = None
 
             if selected_course != None:
-              occasions = CourseDates.query.filter_by(CourseID=selected_course.CourseID)
+              occasions = CourseDates.query.filter_by(CourseID=selected_course.CourseID).all()
+              enrolled_student_ids = EnrolledStudents.query.filter_by(CourseID=selected_course.CourseID).all()
+              
+              enrolled_student_data = []
+              for student in enrolled_student_ids:
+                enrolled_student_data.append(Users.query.filter_by(NeptunCode=student.StudentCode).first())
+
+              enrolled_students = []
+              for i in range(0, len(enrolled_student_data)):
+                enrolled_students.append([enrolled_student_ids[i], enrolled_student_data[i]])
+              
+              print(f"Selected course: {selected_course.CourseID}")
+              print(enrolled_students)
 
             return render_template("teacher/courses.html", 
                 courses=courses, 
                 course_types=course_types, 
                 selected_course=selected_course,
                 occasions=occasions,
-                departments=departments)
+                departments=departments,
+                enrolled_students=enrolled_students)
 
         # Else if the current user is a student
         elif current_user.UserType == 0:
