@@ -3,8 +3,23 @@
 {% block title %} Signup {% endblock title %}
 
 {% block content %}
-<fieldset class="form-group panel bg-light">
-  <legend class="border-bottom mb-4">Sign Up!</legend>
+
+{% if errors != None %}
+  {% with messages = get_flashed_messages() %}
+    <ul class="alert-list">
+    {% for message in messages %}
+    <li>
+      <div class="alert alert-danger fade show" role="alert">
+        <strong>Error: </strong> {{ message }}
+      </div>
+    </li>
+    {% endfor %}
+    </ul>
+  {% endwith %}
+{% endif %}
+
+<fieldset class="form-group panel">
+  <legend class="border-bottom mb-4">Sign Up</legend>
 
   <form method="POST">
 
@@ -16,7 +31,7 @@
         </label>
         <div class="input-group has-validation">
           <input type="email" name="email" id="email"
-                 class="form-control"
+                 class="form-control {{ 'is-invalid' if errors and errors['WRONG_EMAIL'] }}"
                  placeholder="user@example.com">
         </div>
       </div>
@@ -32,7 +47,7 @@
           <input type="text"
                  name="neptun_code"
                  id="neptun_code"
-                 class="form-control"
+                 class="form-control {{ 'is-invalid' if errors and errors['WRONG_NEPTUN_CODE'] }}"
                  placeholder="ABCDE1">
         </div>
       </div>
@@ -46,7 +61,7 @@
         </label>
         <div class="input-group has-validation">
           <input type="text" name="first_name" id="first_name"
-                 class="form-control"
+                 class="form-control {{ 'is-invalid' if errors and errors['WRONG_FIRST_NAME'] }}"
                  placeholder="First Name">
         </div>
       </div>
@@ -57,7 +72,7 @@
         </label>
         <div class="input-group has-validation">
           <input type="text" name="last_name" id="last_name"
-                 class="form-control"
+                 class="form-control {{ 'is-invalid' if errors and errors['WRONG_LAST_NAME'] }}"
                  placeholder="Last Name">
         </div>
       </div>
@@ -71,7 +86,7 @@
         </label>
         <div class="input-group has-validation">
           <input type="password" name="password" id="password"
-                 class="form-control"
+                 class="form-control {{ 'is-invalid' if errors and errors['PASSWORD_CONF'] }}"
                  placeholder="Enter password">
         </div>
       </div>
@@ -82,7 +97,7 @@
         </label>
         <div class="input-group has-validation">
           <input type="password" name="confirm_password" id="confirm_password"
-                 class="form-control"
+                 class="form-control {{ 'is-invalid' if errors and errors['PASSWORD_CONF'] }}"
                  placeholder="Enter password again">
         </div>
       </div>
@@ -93,7 +108,7 @@
       Departments
     </label>
     <div class="input-group mb-3">
-      <select class="form-select" name="department">
+      <select class="form-select {{ 'is-invalid' if errors and errors['DEPARTMENT_DNE'] }}" name="department">
         <option value="0" disabled selected hidden>Select your department</option>
         {% for department in departments %}
         <option value="{{ department.DepartmentID }}">{{ department.DepartmentName }}</option>
@@ -106,7 +121,7 @@
       Study Program
     </label>
     <div class="input-group mb-3">
-      <select class="form-select" name="study_program">
+      <select class="form-select {{ 'is-invalid' if errors and errors['STUDY_PROGRAM_DNE'] }}" name="study_program">
         <option value="0" disabled selected hidden>Select your study program</option>
         {% for study_program in study_programs %}
         <option value="{{ study_program.StudyProgramID }}">{{ study_program.StudyProgramName }}</option>
@@ -143,10 +158,6 @@
 
 
 <style>
-  .panel {
-    margin: 0 auto;
-    max-width: 500px;
-  }
 
   fieldset {
     padding: 15px;
@@ -156,5 +167,32 @@
 
     border-radius: 10px;
   }
+
+  .panel {
+    max-width: 500px;
+  }
+
+  .alert-list {
+    position: absolute;
+    width: 500px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+
+    animation-name: fade-away;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fade-away {
+    0% { opacity: 1 }
+    90% { opacity: 0.9 }
+    100% { opacity: 0; visibility: hidden; }
+  }
+
 </style>
 {% endblock content %}
