@@ -33,12 +33,17 @@ def courses():
     # POST request handler
     if request.method == "POST":
         
+        # If the current user is a teacher
         if current_user.UserType == 1:
 
+            # If the user wants to create a new course
             if request.form.get("request_type") == "create_course":
+
+                # Get the course data
                 name = request.form.get("course_name")
                 departments = request.form.getlist("course_department")
 
+                # Generate course code based on name
                 course_code = name.replace('.', '')
                 course_code = course_code.split(" ")
                 
@@ -54,6 +59,7 @@ def courses():
                 for i in range(0, 10 - n):
                     generated_code = generated_code + str(randint(0, 9))
 
+                # Calculate department flags
                 sum = 0
                 for department in departments:
                   sum = sum + int(department)
@@ -68,7 +74,10 @@ def courses():
                 db.session.add(new_course)
                 db.session.commit()
 
+            # If the user wants to create a new occasion
             elif request.form.get("request_type") == "create_occasion":
+
+                # Get course data
                 course_type = int(request.form.get("course_type")) - 1
                 classroom = request.form.get("classroom")
                 course_date = request.form.get("course_date")
@@ -87,7 +96,10 @@ def courses():
                 db.session.add(new_course_date)
                 db.session.commit()
 
+        # if the current user is a teacher
         else:
+            
+            # If the user wants to enroll in a course
             if request.form.get("request_type") == "enroll_course":
               course = Courses.query.filter_by(CourseCode=request.form.get("course_code")).first()
 
@@ -107,6 +119,8 @@ def courses():
 
         # If the current user is a teacher
         if current_user.UserType == 1:
+            
+            # Get courses and departments
             courses = Courses.query.filter_by(TeacherCode=current_user.NeptunCode)
             course_types = CourseTypes.query.all()
             departments = Departments.query.all()
@@ -122,21 +136,23 @@ def courses():
             occasions = None
             enrolled_students = []
 
+            # If there is a course selected
             if selected_course != None:
+              
+              # Get the occasions and the student ids
               occasions = CourseDates.query.filter_by(CourseID=selected_course.CourseID).all()
               enrolled_student_ids = EnrolledStudents.query.filter_by(CourseID=selected_course.CourseID).all()
               
+              # Get student data based on ids
               enrolled_student_data = []
               for student in enrolled_student_ids:
                 enrolled_student_data.append(Users.query.filter_by(NeptunCode=student.StudentCode).first())
 
+              # Add the student data to a list
               enrolled_students = []
               for i in range(0, len(enrolled_student_data)):
                 enrolled_students.append([enrolled_student_ids[i], enrolled_student_data[i]])
-              
-              print(f"Selected course: {selected_course.CourseID}")
-              print(enrolled_students)
-
+            
             return render_template("teacher/courses.html", 
                 courses=courses, 
                 course_types=course_types, 
@@ -147,17 +163,25 @@ def courses():
 
         # Else if the current user is a student
         elif current_user.UserType == 0:
+
+            # Get enrolled courses
             enrolled_courses = EnrolledStudents.query.filter_by(StudentCode=current_user.NeptunCode)
             courses = []
 
+            # Get courses based on enrolled courses
             for course in enrolled_courses:
               courses.append(Courses.query.filter_by(CourseID=course.CourseID).first())
 
+            # If the user is enrolled in courses and there is no selected course
             if enrolled_courses.count() != 0 and selected_course == None:
+              # Redirect to general.course with the first enrolled course
               return redirect(url_for("general.courses", selected_course=enrolled_courses[0].CourseID))
-            else:
+
+            # If the user is enrolled in courses and has selected a course
+            elif enrolled_courses.count() != 0 and selected_course != None:
               selected_course = Courses.query.filter_by(CourseID=selected_course).first()
 
+            # Get approved status based on selected course
             if selected_course != None:
               approved = (EnrolledStudents.query.filter_by(
                 StudentCode=current_user.NeptunCode,
