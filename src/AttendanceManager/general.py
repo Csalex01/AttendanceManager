@@ -134,7 +134,7 @@ def courses():
               selected_course = Courses.query.filter_by(CourseID=selected_course).first()
 
             occasions = None
-            enrolled_students = None
+            enrolled_students = []
 
             # If there is a course selected
             if selected_course != None:
