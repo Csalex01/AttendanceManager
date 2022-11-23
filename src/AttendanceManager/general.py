@@ -4,6 +4,8 @@ from random import randint
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 
+import qrcode
+
 from AttendanceManager.models import *
 
 # Initialize blueprint
@@ -84,6 +86,10 @@ def courses():
                 course_time = request.form.get("course_time")
 
                 course_date += f" {course_time}"
+                
+                selected_course_code = (Courses.query.filter_by(CourseID=selected_course).first()).CourseCode
+                qr_code_img = qrcode.make(f"{selected_course_code}_{datetime.strptime(course_date, '%Y-%m-%d %H:%M')}")
+                qr_code_img.save(f"AttendanceManager/static/qr_codes/{selected_course_code} {course_date}.png")
 
                 new_course_date = CourseDates(
                   CourseID=selected_course,
@@ -95,6 +101,8 @@ def courses():
 
                 db.session.add(new_course_date)
                 db.session.commit()
+
+                return redirect(url_for("general.courses", selected_course=selected_course))
 
         # if the current user is a teacher
         else:
@@ -112,7 +120,7 @@ def courses():
               db.session.add(enrolled_student)
               db.session.commit()
 
-        return redirect(url_for("general.index"))
+              return redirect(url_for("general.courses", selected_course=selected_course))
 
     # GET request handler
     elif request.method == "GET":

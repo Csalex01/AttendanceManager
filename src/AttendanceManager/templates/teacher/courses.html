@@ -36,8 +36,10 @@
       {{ selected_course.Name }}
 
       <div class="float-end">
-        <button class="btn btn-success" data-bs-toggle="modal"data-bs-target="#newOccasion">Create New Occasion</button>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrolledStudents">Enrolled Students</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newOccasion">Create New
+          Occasion</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrolledStudents">Enrolled
+          Students</button>
       </div>
 
       <hr>
@@ -69,7 +71,7 @@
                 <i class="bi bi-person-lines-fill"></i>
               </a>
               <a class="btn btn-success" data-bs-toggle="modal"
-                data-bs-target="#newCourseModal"><i class="bi bi-qr-code"></i></a>
+                 data-bs-target="#courseQRCode"><i class="bi bi-qr-code"></i></a>
               <a class="btn btn-danger">
                 <i class="bi bi-pencil-square"></i>
               </a>
@@ -120,7 +122,8 @@
               <ul class="list-group">
                 {% for department in departments %}
                 <li class="list-group-item">
-                  <input class="form-check-input me-1" name="course_department" type="checkbox" value="{{ department.DepartmentID }}">
+                  <input class="form-check-input me-1" name="course_department" type="checkbox"
+                         value="{{ department.DepartmentID }}">
                   {{ department.DepartmentName }}
                 </li>
                 {% endfor %}
@@ -248,13 +251,15 @@
                   {% if student[0].Approved %}
                   <div class="form-switch">
                     <span class="float me-5">Not Approved</span>
-                    <input role="switch" class="form-check-input" type="checkbox" name="{{ student[0].StudentCode }}" id="{{ student[0].StudentCode }}" checked>
+                    <input role="switch" class="form-check-input" type="checkbox" name="{{ student[0].StudentCode }}"
+                           id="{{ student[0].StudentCode }}" checked>
                     <span>Approved</span>
                   </div>
-                  {%  else %}
+                  {% else %}
                   <div class="form-switch">
                     <span class="me-5">Not Approved</span>
-                    <input role="switch" class="form-check-input" type="checkbox" name="{{ student[0].StudentCode }}" id="{{ student[0].StudentCode }}">
+                    <input role="switch" class="form-check-input" type="checkbox" name="{{ student[0].StudentCode }}"
+                           id="{{ student[0].StudentCode }}">
                     <span>Approved</span>
                   </div>
                   {% endif %}
@@ -278,8 +283,38 @@
   </form>
 </div>
 
+<!-- Modal for QR Code -->
+
+<div class="modal fade" id="courseQRCode" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="courseQRCodeLabel" aria-hidden="true">
+
+  <form method="POST">
+
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="courseQRCodeLabel">Course QR Code</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Create New Course</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
 <style>
-  input[type="date"], input[type="time"] {
+  input[type="date"],
+  input[type="time"] {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid lightgray;
