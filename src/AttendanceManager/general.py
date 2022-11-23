@@ -120,7 +120,7 @@ def courses():
               selected_course = Courses.query.filter_by(CourseID=selected_course).first()
 
             occasions = None
-            enrolled_students = None
+            enrolled_students = []
 
             if selected_course != None:
               occasions = CourseDates.query.filter_by(CourseID=selected_course.CourseID).all()
