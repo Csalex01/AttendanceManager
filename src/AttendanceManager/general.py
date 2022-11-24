@@ -95,7 +95,8 @@ def courses():
                     Type=course_type,
                     Classroom=classroom,
                     CourseType=course_type,
-                    Date=course_date
+                    Date=course_date,
+                    Filename=" "
                 )
 
                 db.session.add(new_course_date)
@@ -103,12 +104,18 @@ def courses():
 
                 selected_course_code = (Courses.query.filter_by(
                     CourseID=selected_course).first()).CourseCode
+
+                filename = f"{selected_course_code}_{new_course_date.OccasionID}.png"
+
                 qr_code_img = qrcode.make(
-                    f"{selected_course_code}_{new_course_date.OccasionID}")
+                    f"https://sapientiaattendancemanager.ro/attend/{filename}")
 
-                filename = f"AttendanceManager/static/qr_codes/{selected_course_code}_{new_course_date.OccasionID}.png"
+                qr_code_img.save(
+                    f"AttendanceManager/static/qr_codes/{filename}")
 
-                qr_code_img.save(filename)
+                new_course_date.Filename = f"{filename}"
+
+                db.session.commit()
 
             return redirect(url_for("general.courses", selected_course=selected_course))
 

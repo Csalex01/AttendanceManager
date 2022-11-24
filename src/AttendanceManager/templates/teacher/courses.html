@@ -71,7 +71,7 @@
                 <i class="bi bi-person-lines-fill"></i>
               </a>
               <a class="btn btn-success" data-bs-toggle="modal"
-                 data-bs-target="#courseQRCode"><i class="bi bi-qr-code"></i></a>
+                 data-bs-target="#courseQRCode_{{ occasion.OccasionID }}"><i class="bi bi-qr-code"></i></a>
               <a class="btn btn-danger">
                 <i class="bi bi-pencil-square"></i>
               </a>
@@ -285,32 +285,35 @@
 
 <!-- Modal for QR Code -->
 
-<div class="modal fade" id="courseQRCode" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="courseQRCodeLabel" aria-hidden="true">
+{% for occasion in occasions %}
 
-  <form method="POST">
+<div class="modal fade" id="courseQRCode_{{ occasion.OccasionID }}" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="courseQRCode_{{ occasion.OccasionID }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="courseQRCodeLabel">Course QR Code</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Create New Course</button>
-        </div>
-
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="courseQRCode_{{ occasion.OccasionID }}">Course QR Code #{{ occasion.OccasionID
+          }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+      <div class="modal-body">
+        {% set filename = "qr_codes/" + occasion.Filename %}
+        <img src="{{ url_for('static', filename=filename) }}">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Create New Course</button>
+      </div>
+
     </div>
-  </form>
+  </div>
 </div>
+
+{% endfor %}
 
 <style>
   input[type="date"],
