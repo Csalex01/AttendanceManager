@@ -5,20 +5,21 @@
 {% block content %}
 
 {% if errors != None %}
-  {% with messages = get_flashed_messages() %}
-    <ul class="alert-list">
-    {% for message in messages %}
-    <li>
-      <div class="alert alert-danger fade show" role="alert">
-        <strong>Error: </strong> {{ message }}
-      </div>
-    </li>
-    {% endfor %}
-    </ul>
-  {% endwith %}
+{% with messages = get_flashed_messages() %}
+<ul class="alert-list">
+  {% for message in messages %}
+  <li>
+    <div class="alert alert-danger fade show" role="alert">
+      <strong>Error: </strong> {{ message }}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endwith %}
 {% endif %}
 
-<fieldset class="form-group panel">
+<fieldset class="form-group panel mt-3">
+
   <legend class="border-bottom mb-4">Sign Up</legend>
 
   <form method="POST">
@@ -153,12 +154,10 @@
     </small>
   </div>
 
-
 </fieldset>
 
 
 <style>
-
   fieldset {
     padding: 15px;
 
@@ -181,7 +180,7 @@
     z-index: 10000;
     list-style: none;
     margin: 0;
-    padding: 0; 
+    padding: 0;
 
     animation-name: fade-away;
     animation-duration: 3s;
@@ -189,10 +188,18 @@
   }
 
   @keyframes fade-away {
-    0% { opacity: 1 }
-    90% { opacity: 0.9 }
-    100% { opacity: 0; visibility: hidden; }
-  }
+    0% {
+      opacity: 1
+    }
 
+    90% {
+      opacity: 0.9
+    }
+
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 </style>
 {% endblock content %}
