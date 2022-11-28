@@ -51,19 +51,19 @@ def init_database():
     COMMUNICATION_AND_PUBLIC_RELATIONS = StudyProgram(
         StudyProgramID=4, DepartmentID=2, StudyProgramName="Communication and Public Relations")
     INFORCMATICS = StudyProgram(
-        StudyProgramID=5, DepartmentID=32, StudyProgramName="Informatics")
+        StudyProgramID=5, DepartmentID=16, StudyProgramName="Informatics")
     LANDSCAPE_ARCHITECTURE = StudyProgram(
         StudyProgramID=6, DepartmentID=8, StudyProgramName="Landscape Architecture")
     MACHINE_MANUFACTURINIG_ENGINEERING = StudyProgram(
         StudyProgramID=7, DepartmentID=16, StudyProgramName="Machine Manufacturinig Engineering")
     MECHATRONICS = StudyProgram(
-        StudyProgramID=8, DepartmentID=16, StudyProgramName="Mechatronics")
+        StudyProgramID=8, DepartmentID=4, StudyProgramName="Mechatronics")
     PUBLIC_HEALTH_SYSTEMS_AND_TECHNOLOGIES = StudyProgram(
         StudyProgramID=9, DepartmentID=2, StudyProgramName="Public Health Services and Policies")
     TELECOMMUNICATION_SYSTEMS_AND_TECHNOLOGIES = StudyProgram(
         StudyProgramID=10, DepartmentID=32, StudyProgramName="Telecommunication Systems and Technologies")
-    TRANSLATEION_AND_INTERPRETING_STUDIES = StudyProgram(
-        StudyProgramID=11, DepartmentID=1, StudyProgramName="Translateion and Interpreting Studies")
+    TRANSLATION_AND_INTERPRETING_STUDIES = StudyProgram(
+        StudyProgramID=11, DepartmentID=1, StudyProgramName="Translation and Interpreting Studies")
 
     db.session.add(HORTICULTURAL_ENGINEERING)
     db.session.add(AUTOMATION_AND_APPLIED_INFORMATICS)
@@ -72,9 +72,10 @@ def init_database():
     db.session.add(LANDSCAPE_ARCHITECTURE)
     db.session.add(MACHINE_MANUFACTURINIG_ENGINEERING)
     db.session.add(MECHATRONICS)
+    db.session.add(COMPUTER_SCIENCE)
     db.session.add(PUBLIC_HEALTH_SYSTEMS_AND_TECHNOLOGIES)
     db.session.add(TELECOMMUNICATION_SYSTEMS_AND_TECHNOLOGIES)
-    db.session.add(TRANSLATEION_AND_INTERPRETING_STUDIES)
+    db.session.add(TRANSLATION_AND_INTERPRETING_STUDIES)
 
     
 
