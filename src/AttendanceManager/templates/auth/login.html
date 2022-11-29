@@ -3,8 +3,24 @@
 {% block title %} Login {% endblock title %}
 
 {% block content %}
+
+{% if errors != None %}
+  {% with messages = get_flashed_messages() %}
+    <ul class="alert-list">
+    {% for message in messages %}
+    <li>
+      <div class="alert alert-danger fade show" role="alert">
+        <strong>Error: </strong> {{ message }}
+      </div>
+    </li>
+    {% endfor %}
+    </ul>
+  {% endwith %}
+{% endif %}
+
 <fieldset class="form-group panel mt-3">
-  <legend class="border-bottom mb-4">Log in!</legend>
+
+  <legend class="border-bottom mb-4">Log In</legend>
 
   <form method="POST">
 
@@ -15,7 +31,13 @@
           E-mail
         </label>
         <div class="input-group has-validation">
-          <input type="email" name="email" id="email" class="form-control" placeholder="user@example.com">
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="form-control {{ 'is-invalid' if errors and errors['WRONG_EMAIL'] }}" 
+            placeholder="user@example.com" 
+            required>
         </div>
       </div>
     </div>
@@ -27,7 +49,13 @@
           Password
         </label>
         <div class="input-group has-validation">
-          <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
+          <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          class="form-control {{ 'is-invalid' if errors and errors['WRONG_PASSWORD'] }}" 
+          placeholder="Enter password" 
+          required>
         </div>
       </div>
     </div>
@@ -54,17 +82,32 @@
 
 </fieldset>
 
-
 <style>
-  .panel {
-    margin: 0 auto;
-    max-width: 500px;
-    background: rgba(245, 245, 245, 0.9);
-    padding: 15px;
-    border-radius: 10px;
 
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.9);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  .panel {
+    max-width: 500px;
+  }
+
+  .alert-list {
+    position: absolute;
+    width: 500px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+
+    animation-name: fade-away;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fade-away {
+    0% { opacity: 1 }
+    90% { opacity: 0.9 }
+    100% { opacity: 0; visibility: hidden; }
   }
 </style>
 {% endblock content %}
