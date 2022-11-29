@@ -53,7 +53,7 @@ class CourseDates(db.Model):
 
 
 class Attendance(db.Model):
-    CourseID = db.Column(db.Integer, primary_key=True)
+    OccasionID = db.Column(db.Integer, primary_key=True)
     StudentCode = db.Column(db.Integer, primary_key=True)
     Present = db.Column(db.Boolean, default=False)
 
