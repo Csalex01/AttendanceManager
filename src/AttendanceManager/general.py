@@ -13,7 +13,6 @@ general = Blueprint("general", __name__)
 
 # Set routes and their rules
 
-
 @general.route("/")
 @login_required
 def index():
@@ -25,7 +24,6 @@ def index():
     # If not, redirect to login
     else:
         return redirect(url_for("auth.login"))
-
 
 @general.route("/courses", methods=["GET", "POST"])
 @login_required
@@ -159,7 +157,7 @@ def courses():
                 selected_course = Courses.query.filter_by(
                     CourseID=selected_course).first()
 
-            occasions = None
+            occasions = []
             enrolled_students = []
 
             # If there is a course selected
