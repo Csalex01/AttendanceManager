@@ -185,6 +185,28 @@ def create_course():
         print(f"\n{COLORS.FAIL}\nQuit.{COLORS.RESET}")
         return    
 
+def create_department():
+    print(f"\n{COLORS.OKGREEN}Create Department\n*--------*{COLORS.RESET}")
+
+    last_department_id = Departments.query.all()
+    last_department_id = last_department_id[len(last_department_id) - 1].DepartmentID
+    print(last_department_id)
+
+    try:
+        name = input(f"{COLORS.OKCYAN}> Name:{COLORS.RESET} ")
+
+        department = Departments(
+            DepartmentID=last_department_id * 2,
+            DepartmentName=name
+        )
+
+        db.session.add(department)
+        db.session.commit()
+
+    except KeyboardInterrupt:
+        print(f"\n{COLORS.FAIL}\nQuit.{COLORS.RESET}")
+        return  
+
 # Method for menu
 def menu():
     while True:
@@ -198,6 +220,7 @@ def menu():
         print(f"{COLORS.WARNING}*-----* Add to Database *-----*{COLORS.RESET}")
         print(f"{COLORS.OKGREEN}5.){COLORS.RESET} Sign Up User")
         print(f"{COLORS.OKGREEN}6.){COLORS.RESET} Create Course")
+        print(f"{COLORS.OKGREEN}7.){COLORS.RESET} Create Department")
         print(f"{COLORS.WARNING}*-----------------------------*{COLORS.RESET}")
         print(f"{COLORS.OKGREEN}0.){COLORS.RESET} Exit")
         print(f"{COLORS.OKCYAN}*--------------------------------------------------*{COLORS.RESET}")
@@ -234,6 +257,9 @@ def menu():
 
         elif choice == 6:
             create_course()
+
+        elif choice == 7:
+            create_department()
 
         elif choice == 0:
             print(f"{COLORS.FAIL}\nQuit.{COLORS.RESET}\n")
