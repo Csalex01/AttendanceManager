@@ -100,20 +100,46 @@ def courses():
                 db.session.add(new_course_date)
                 db.session.commit()
 
+                enrolled_students = EnrolledStudents.query.filter_by(CourseID=selected_course).all()
+
+                for student in enrolled_students:
+                    if student.Approved == True:
+                        attendance = Attendance(
+                            OccasionID=new_course_date.OccasionID,
+                            StudentCode=student.StudentCode,
+                            Present=False
+                        )
+
+                        db.session.add(attendance)
+
                 selected_course_code = (Courses.query.filter_by(
                     CourseID=selected_course).first()).CourseCode
 
-                filename = f"{selected_course_code}_{new_course_date.OccasionID}.png"
+                filename = f"{selected_course_code}_{new_course_date.OccasionID}"
 
                 qr_code_img = qrcode.make(
-                    f"https://sapientiaattendancemanager.ro/attend/{filename}")
+                    f"https://sapientiaattendancemanager.ro/attend_class?occasion={filename}")
 
                 qr_code_img.save(
-                    f"AttendanceManager/static/qr_codes/{filename}")
+                    f"AttendanceManager/static/qr_codes/{filename}.png")
 
                 new_course_date.Filename = f"{filename}"
 
                 db.session.commit()
+
+            elif request.form.get("request_type") == "enroll_students": 
+                enrolled_students = EnrolledStudents.query.filter_by(CourseID=selected_course).all()
+
+                print(enrolled_students)
+
+                for student in enrolled_students:
+                    status = request.form.get(student.StudentCode)
+                    student.Approved = True if status == "on" else False
+                    
+                    db.session.add(student)
+
+                db.session.commit()
+                
 
             return redirect(url_for("general.courses", selected_course=selected_course))
 
@@ -230,6 +256,39 @@ def courses():
         # If neither, redirect to login
         else:
             return redirect(url_for("auth.login"))
+
+
+@general.route("/attend_class")
+@login_required
+def attend_class():
+
+    if request.method == "GET" and current_user.UserType == 0:
+
+        args = (request.args.get("occasion")).split("_")
+        course_code = args[0]
+        occasion_id = args[1]
+
+        course = Courses.query.filter_by(CourseCode=course_code).first()
+        status = EnrolledStudents.query.filter_by(
+            CourseID=course.CourseID, 
+            StudentCode=current_user.NeptunCode).first()
+
+        if status.Approved == True:
+            attendance = Attendance.query.filter_by(
+                OccasionID=occasion_id
+                ).filter_by(
+                    StudentCode=current_user.NeptunCode
+                ).first()
+            
+            if attendance == None:
+                return redirect(url_for("general.index"))
+
+            attendance.Present = True
+
+            db.session.add(attendance)
+            db.session.commit()
+
+    return redirect(url_for("general.index"))
 
 
 @general.route("/enrolled_students")
