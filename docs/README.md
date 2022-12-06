@@ -8,3 +8,6 @@
 
 ## Database
 - Tool used: DB Designer ([Database Schema](https://dbdesigner.page.link/aFmPSs7NLkqhCUYD9))
+
+## Documentation
+- Written in LaTeX using Overleaf ([AttendanceManager Documentation](https://www.overleaf.com/read/dxcnfpkbnmqr))
