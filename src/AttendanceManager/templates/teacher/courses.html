@@ -269,7 +269,7 @@
             </tbody>
           </table>
 
-          <input type="hidden" name="request_type" value="enroll_student">
+          <input type="hidden" name="request_type" value="enroll_students">
 
         </div>
 
@@ -290,23 +290,22 @@
 <div class="modal fade" id="courseQRCode_{{ occasion.OccasionID }}" data-bs-backdrop="static" data-bs-keyboard="false"
      tabindex="-1"
      aria-labelledby="courseQRCode_{{ occasion.OccasionID }}" aria-hidden="true">
+
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="courseQRCode_{{ occasion.OccasionID }}">Course QR Code #{{ occasion.OccasionID
-          }}</h1>
+        <h1 class="modal-title fs-5" id="courseQRCode_{{ occasion.OccasionID }}">QR Code for {{ occasion.Date }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
         {% set filename = "qr_codes/" + occasion.Filename %}
-        <img src="{{ url_for('static', filename=filename) }}">
+        <img src="{{ url_for('static', filename=filename) }}.png">
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Create New Course</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
       </div>
 
     </div>
