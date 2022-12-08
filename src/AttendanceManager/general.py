@@ -222,6 +222,7 @@ def courses():
             enrolled_courses = EnrolledStudents.query.filter_by(
                 StudentCode=current_user.NeptunCode)
             courses = []
+            course_types = CourseTypes.query.all()
 
             # Get courses based on enrolled courses
             for course in enrolled_courses:
@@ -244,14 +245,22 @@ def courses():
                     StudentCode=current_user.NeptunCode,
                     CourseID=selected_course.CourseID
                 ).first()).Approved
+
+                occasions = CourseDates.query.filter_by(CourseID=selected_course.CourseID).all()
+                attendance = Attendance.query.filter_by(StudentCode=current_user.NeptunCode).all()
+
             else:
                 approved = False
+                occasions = []
 
             return render_template("student/courses.html",
                                    courses=courses,
                                    selected_course=selected_course,
-                                   approved=approved
-                                   )
+                                   approved=approved,
+                                   occasions=occasions,
+                                   course_types=course_types,
+                                   attendance=attendance
+            )
 
         # If neither, redirect to login
         else:

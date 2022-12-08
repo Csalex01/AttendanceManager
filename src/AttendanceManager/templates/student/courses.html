@@ -54,7 +54,13 @@
           <td>{{ loop.index }}</td>
           <td>{{ occasion.Date }}</td>
           <td>{{ course_types[occasion.CourseType].CourseTypeName }}</td>
-          <td>0</td>
+          <td>
+              {% if attendance[occasion.OccasionID - 1].Present == True %}
+                <span class="text-success">Attended</span>
+              {% else %}
+                <span class="text-danger">Not Attended</span>
+              {% endif %}
+          </td>
         </tr>
         {% endfor %}
       </tbody>
