@@ -63,8 +63,8 @@
           <td>{{ loop.index }}</td>
           <td>{{ occasion.Date }}</td>
           <td>{{ course_types[occasion.CourseType].CourseTypeName }}</td>
-          <td>0</td>
-          <td>0</td>
+          <td>{{ total }}</td>
+          <td>{{ present_count[occasion.OccasionID - 1] }}</td>
           <td>
             <div class="btn-group">
               <a class="btn btn-primary">

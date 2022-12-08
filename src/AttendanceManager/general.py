@@ -194,6 +194,10 @@ def courses():
                     CourseID=selected_course.CourseID).all()
                 enrolled_student_ids = EnrolledStudents.query.filter_by(
                     CourseID=selected_course.CourseID).all()
+                present_count = []
+
+                for occasion in occasions:
+                    present_count.append(Attendance.query.filter_by(OccasionID=occasion.OccasionID, Present=1).count())
 
                 # Get student data based on ids
                 enrolled_student_data = []
@@ -213,7 +217,9 @@ def courses():
                                    selected_course=selected_course,
                                    occasions=occasions,
                                    departments=departments,
-                                   enrolled_students=enrolled_students)
+                                   enrolled_students=enrolled_students,
+                                   total=len(enrolled_student_ids),
+                                   present_count=present_count)
 
         # Else if the current user is a student
         elif current_user.UserType == 0:
@@ -259,8 +265,7 @@ def courses():
                                    approved=approved,
                                    occasions=occasions,
                                    course_types=course_types,
-                                   attendance=attendance
-            )
+                                   attendance=attendance)
 
         # If neither, redirect to login
         else:
