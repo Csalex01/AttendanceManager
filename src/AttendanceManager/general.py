@@ -118,7 +118,7 @@ def courses():
                 filename = f"{selected_course_code}_{new_course_date.OccasionID}"
 
                 qr_code_img = qrcode.make(
-                    f"https://sapientiaattendancemanager.ro/attend_class?occasion={filename}")
+                    f"https://sapientiaattendancemanager.pythonanywhere.com/attend_class?occasion={filename}")
 
                 qr_code_img.save(
                     f"AttendanceManager/static/qr_codes/{filename}.png")
@@ -195,9 +195,14 @@ def courses():
                 enrolled_student_ids = EnrolledStudents.query.filter_by(
                     CourseID=selected_course.CourseID).all()
                 present_count = []
+                attendances = []
 
                 for occasion in occasions:
-                    present_count.append(Attendance.query.filter_by(OccasionID=occasion.OccasionID, Present=1).count())
+                    query = Attendance.query.filter_by(OccasionID=occasion.OccasionID, Present=1)
+                    present_count.append(query.count())
+                    attendances.append(query.all())
+
+                print(attendances[1])
 
                 # Get student data based on ids
                 enrolled_student_data = []
@@ -219,7 +224,8 @@ def courses():
                                    departments=departments,
                                    enrolled_students=enrolled_students,
                                    total=len(enrolled_student_ids),
-                                   present_count=present_count)
+                                   present_count=present_count,
+                                   attendances=attendances)
 
         # Else if the current user is a student
         elif current_user.UserType == 0:
@@ -229,6 +235,8 @@ def courses():
                 StudentCode=current_user.NeptunCode)
             courses = []
             course_types = CourseTypes.query.all()
+            occasions = []
+            attendance = []
 
             # Get courses based on enrolled courses
             for course in enrolled_courses:
@@ -257,7 +265,6 @@ def courses():
 
             else:
                 approved = False
-                occasions = []
 
             return render_template("student/courses.html",
                                    courses=courses,
