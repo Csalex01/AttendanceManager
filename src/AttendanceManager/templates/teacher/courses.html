@@ -67,8 +67,8 @@
           <td>{{ present_count[occasion.OccasionID - 1] }}</td>
           <td>
             <div class="btn-group">
-              <a class="btn btn-primary" data-bs-toggle="modal" 
-                data-bs-target="#attendance_courseCode_{{ occasion.OccasionID }}">
+              <a class="btn btn-primary" data-bs-toggle="modal"
+                 data-bs-target="#attendance_courseCode_{{ occasion.OccasionID }}">
                 <i class="bi bi-person-lines-fill"></i>
               </a>
               <a class="btn btn-success" data-bs-toggle="modal"
@@ -288,15 +288,17 @@
 
 {% for occasion in occasions %}
 
-<div class="modal fade" id="occasion_courseQRCode_{{ occasion.OccasionID }}" data-bs-backdrop="static" data-bs-keyboard="false"
+<div class="modal fade" id="occasion_courseQRCode_{{ occasion.OccasionID }}" data-bs-backdrop="static"
+     data-bs-keyboard="false"
      tabindex="-1"
      aria-labelledby="occasion_courseQRCode_{{ occasion.OccasionID }}" aria-hidden="true">
 
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h1 class="modal-title fs-5">QR Code for {{ occasion.Date }}</h1>
+        <h1 class="modal-title fs-5">QR Code for {{ course_types[occasion.CourseType].CourseTypeName }} ({{
+          occasion.Date }})</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -319,7 +321,8 @@
 
 {% for occasion in occasions %}
 
-<div class="modal fade" id="attendance_courseCode_{{ occasion.OccasionID }}" data-bs-backdrop="static" data-bs-keyboard="false"
+<div class="modal fade" id="attendance_courseCode_{{ occasion.OccasionID }}" data-bs-backdrop="static"
+     data-bs-keyboard="false"
      tabindex="-1"
      aria-labelledby="attendance_courseCode_{{ occasion.OccasionID }}" aria-hidden="true">
 
@@ -340,13 +343,13 @@
           </thead>
           <tbody class="table-group-divider text-center">
             {% for attendance in attendances %}
-                {% for student in attendance %}
-                  {% if student.OccasionID == occasion.OccasionID %}
-                    <tr>
-                      <td>{{ student.StudentCode }}</td>
-                    </tr>
-                  {% endif %}
-                {% endfor %}
+            {% for student in attendance %}
+            {% if student.OccasionID == occasion.OccasionID %}
+            <tr>
+              <td>{{ student.StudentCode }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
             {% endfor %}
           </tbody>
         </table>

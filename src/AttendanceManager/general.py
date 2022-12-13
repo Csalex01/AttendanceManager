@@ -185,6 +185,9 @@ def courses():
 
             occasions = []
             enrolled_students = []
+            enrolled_student_ids = []
+            present_count = []
+            attendances = []
 
             # If there is a course selected
             if selected_course != None:
@@ -194,16 +197,12 @@ def courses():
                     CourseID=selected_course.CourseID).all()
                 enrolled_student_ids = EnrolledStudents.query.filter_by(
                     CourseID=selected_course.CourseID).all()
-                present_count = []
-                attendances = []
 
                 for occasion in occasions:
                     query = Attendance.query.filter_by(OccasionID=occasion.OccasionID, Present=1)
                     present_count.append(query.count())
                     attendances.append(query.all())
-
-                print(attendances[1])
-
+                    
                 # Get student data based on ids
                 enrolled_student_data = []
                 for student in enrolled_student_ids:
