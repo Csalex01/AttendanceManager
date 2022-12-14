@@ -26,6 +26,7 @@ def signup():
         "PASSWORD_CONF": False,
         "EMPTY_FIELDS": False
       }
+      
       found_errors = False
       
       # Get user data from the form
@@ -46,17 +47,6 @@ def signup():
       # the user is a teacher.
       if teacher != None:
         user_type = 1
-
-      # TODO These are only for debugging purposes, remove them when finalising the project.
-      print(f"Email: {email}")
-      print(f"Neptun Code: {neptun_code}")
-      print(f"First Name: {first_name}")
-      print(f"Last Name: {last_name}")
-      print(f"Password: {password}")
-      print(f"Confirm Password: {confirm_password}")
-      print(f"Department: {department}")
-      print(f"Study Program: {study_program}")
-      print(f"User Type: {user_type}")
 
       if len(email) < 1 and len(neptun_code) < 1 and len(first_name) < 1 and len(last_name) < 1 and len(password) < 1 and department == None and study_program == None:
         flash("All fields must be filled!")
@@ -194,7 +184,6 @@ def login():
       else:
 
         # If the password is incorrect, reload the page with an error.
-
         flash("Wrong password!")
         errors["WRONG_PASSWORD"] = True
 
@@ -202,7 +191,6 @@ def login():
     else:
 
       # If user does not exist, redirect to signup
-
       flash(f"There is no such user {email}")
       errors["WRONG_EMAIL"] = True
 
