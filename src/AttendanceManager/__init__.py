@@ -44,7 +44,7 @@ login_manager.login_view = "auth.login"
 login_manager.login_message_category = "danger"
 login_manager.init_app(app)
 
-# THis function is responsible for fetching the current user from the database
+# This function is responsible for fetching the current user from the database
 @login_manager.user_loader
 def load_user(NeptunCode):
   return Users.query.get(NeptunCode)
