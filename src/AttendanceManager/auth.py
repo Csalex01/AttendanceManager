@@ -4,6 +4,8 @@ from .models import *
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_user, logout_user
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 # Initialize blueprint
 auth = Blueprint("auth", __name__)
 general = Blueprint("general", __name__)
@@ -121,7 +123,7 @@ def signup():
       new_user = Users(
         NeptunCode=neptun_code,
         Email=email,
-        Password=password,
+        Password=generate_password_hash(password),
         FirstName=first_name,
         LastName=last_name,
         UserType=user_type,
@@ -175,7 +177,7 @@ def login():
     if user:
       
       # Then check if the password is correct
-      if password == user.Password:
+      if check_password_hash(user.Password, password):
         # Log in the user
         login_user(user, remember=True)
         
