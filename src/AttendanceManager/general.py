@@ -118,7 +118,7 @@ def courses():
                 filename = f"{selected_course_code}_{new_course_date.OccasionID}"
 
                 qr_code_img = qrcode.make(
-                    f"https://sapientiaattendancemanager.ro/attend_class?occasion={filename}")
+                    f"https://sapientiaattendancemanager.pythonanywhere.com/attend_class?occasion={filename}")
 
                 qr_code_img.save(
                     f"AttendanceManager/static/qr_codes/{filename}.png")
@@ -130,8 +130,6 @@ def courses():
             elif request.form.get("request_type") == "enroll_students": 
                 enrolled_students = EnrolledStudents.query.filter_by(CourseID=selected_course).all()
 
-                print(enrolled_students)
-
                 for student in enrolled_students:
                     status = request.form.get(student.StudentCode)
                     student.Approved = True if status == "on" else False
@@ -140,10 +138,9 @@ def courses():
 
                 db.session.commit()
                 
-
             return redirect(url_for("general.courses", selected_course=selected_course))
 
-        # if the current user is a teacher
+        # if the current user is a student
         else:
 
             # If the user wants to enroll in a course
@@ -169,8 +166,7 @@ def courses():
         if current_user.UserType == 1:
 
             # Get courses and departments
-            courses = Courses.query.filter_by(
-                TeacherCode=current_user.NeptunCode)
+            courses = Courses.query.filter_by(TeacherCode=current_user.NeptunCode)
             course_types = CourseTypes.query.all()
             departments = Departments.query.all()
 
@@ -180,11 +176,13 @@ def courses():
 
             # Otherwise get the selected course
             else:
-                selected_course = Courses.query.filter_by(
-                    CourseID=selected_course).first()
+                selected_course = Courses.query.filter_by(CourseID=selected_course).first()
 
             occasions = []
             enrolled_students = []
+            enrolled_student_ids = []
+            present_count = []
+            attendances = [] 
 
             # If there is a course selected
             if selected_course != None:
@@ -195,6 +193,11 @@ def courses():
                 enrolled_student_ids = EnrolledStudents.query.filter_by(
                     CourseID=selected_course.CourseID).all()
 
+                for occasion in occasions:
+                    query = Attendance.query.filter_by(OccasionID=occasion.OccasionID, Present=1)
+                    present_count.append(query.count())
+                    attendances.append(query.all())
+                    
                 # Get student data based on ids
                 enrolled_student_data = []
                 for student in enrolled_student_ids:
@@ -213,7 +216,10 @@ def courses():
                                    selected_course=selected_course,
                                    occasions=occasions,
                                    departments=departments,
-                                   enrolled_students=enrolled_students)
+                                   enrolled_students=enrolled_students,
+                                   total=len(enrolled_student_ids),
+                                   present_count=present_count,
+                                   attendances=attendances)
 
         # Else if the current user is a student
         elif current_user.UserType == 0:
@@ -222,6 +228,10 @@ def courses():
             enrolled_courses = EnrolledStudents.query.filter_by(
                 StudentCode=current_user.NeptunCode)
             courses = []
+            course_types = CourseTypes.query.all()
+            occasions = []
+            attendance = []
+            approved = False
 
             # Get courses based on enrolled courses
             for course in enrolled_courses:
@@ -244,14 +254,17 @@ def courses():
                     StudentCode=current_user.NeptunCode,
                     CourseID=selected_course.CourseID
                 ).first()).Approved
-            else:
-                approved = False
+
+                occasions = CourseDates.query.filter_by(CourseID=selected_course.CourseID).all()
+                attendance = Attendance.query.filter_by(StudentCode=current_user.NeptunCode).all()
 
             return render_template("student/courses.html",
                                    courses=courses,
                                    selected_course=selected_course,
-                                   approved=approved
-                                   )
+                                   approved=approved,
+                                   occasions=occasions,
+                                   course_types=course_types,
+                                   attendance=attendance)
 
         # If neither, redirect to login
         else:
@@ -290,18 +303,6 @@ def attend_class():
 
     return redirect(url_for("general.index"))
 
-
-@general.route("/enrolled_students")
-@login_required
-def enrolled_students():
-
-    # If the current user is a teacher
-    if current_user.UserType == 1:
-        return render_template("teacher/enrolled_students.html")
-
-    return redirect(url_for("general.index"))
-
-
 @general.route("/profile")
 @login_required
 def profile():
@@ -313,9 +314,7 @@ def profile():
     return render_template("general/profile.html",
                            user=current_user,
                            department=department,
-                           study_program=study_program
-                           )
-
+                           study_program=study_program)
 
 @general.route("/contact")
 def contact():

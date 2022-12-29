@@ -4,6 +4,8 @@ from .models import *
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_user, logout_user
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 # Initialize blueprint
 auth = Blueprint("auth", __name__)
 general = Blueprint("general", __name__)
@@ -26,6 +28,7 @@ def signup():
         "PASSWORD_CONF": False,
         "EMPTY_FIELDS": False
       }
+      
       found_errors = False
       
       # Get user data from the form
@@ -46,17 +49,6 @@ def signup():
       # the user is a teacher.
       if teacher != None:
         user_type = 1
-
-      # TODO These are only for debugging purposes, remove them when finalising the project.
-      print(f"Email: {email}")
-      print(f"Neptun Code: {neptun_code}")
-      print(f"First Name: {first_name}")
-      print(f"Last Name: {last_name}")
-      print(f"Password: {password}")
-      print(f"Confirm Password: {confirm_password}")
-      print(f"Department: {department}")
-      print(f"Study Program: {study_program}")
-      print(f"User Type: {user_type}")
 
       if len(email) < 1 and len(neptun_code) < 1 and len(first_name) < 1 and len(last_name) < 1 and len(password) < 1 and department == None and study_program == None:
         flash("All fields must be filled!")
@@ -131,7 +123,7 @@ def signup():
       new_user = Users(
         NeptunCode=neptun_code,
         Email=email,
-        Password=password,
+        Password=generate_password_hash(password),
         FirstName=first_name,
         LastName=last_name,
         UserType=user_type,
@@ -185,7 +177,7 @@ def login():
     if user:
       
       # Then check if the password is correct
-      if password == user.Password:
+      if check_password_hash(user.Password, password):
         # Log in the user
         login_user(user, remember=True)
         
@@ -194,7 +186,6 @@ def login():
       else:
 
         # If the password is incorrect, reload the page with an error.
-
         flash("Wrong password!")
         errors["WRONG_PASSWORD"] = True
 
@@ -202,7 +193,6 @@ def login():
     else:
 
       # If user does not exist, redirect to signup
-
       flash(f"There is no such user {email}")
       errors["WRONG_EMAIL"] = True
 
