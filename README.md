@@ -1,8 +1,8 @@
-# 📊 AttendanceManager
-
 <p align="center">
     <img src="src/AttendanceManager/static/logo.png" alt="Attendance Manager" width="150">
 </p>
+
+# 📊 AttendanceManager
 
 ## 👋 Introduction
 
