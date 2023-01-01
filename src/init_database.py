@@ -1,8 +1,6 @@
 from AttendanceManager import db, app
 from AttendanceManager.models import *
 
-from werkzeug.security import generate_password_hash, check_password_hash
-
 
 def init_database():
 
@@ -41,7 +39,7 @@ def init_database():
     db.session.add(MATHEMATICS_INFORMATICS)
     db.session.add(ELECTRICAL_ENGINEERING)
 
-    #StudyProgram
+    # StudyProgram
     HORTICULTURAL_ENGINEERING = StudyProgram(
         StudyProgramID=1, DepartmentID=8, StudyProgramName="Horticultural Engineering")
     AUTOMATION_AND_APPLIED_INFORMATICS = StudyProgram(
@@ -76,8 +74,6 @@ def init_database():
     db.session.add(PUBLIC_HEALTH_SYSTEMS_AND_TECHNOLOGIES)
     db.session.add(TELECOMMUNICATION_SYSTEMS_AND_TECHNOLOGIES)
     db.session.add(TRANSLATION_AND_INTERPRETING_STUDIES)
-
-    
 
     # CourseTypes
     LECTURE = CourseTypes(CourseTypeID=1, CourseTypeName="Lecture")
