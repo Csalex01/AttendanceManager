@@ -26,4 +26,4 @@ When developing this project, the following goals were formulated:
 
 ## 💻 Hosting
 
-The web application is hosted using PythonAnywhere.com. You can access it [here](https://sapientiaattendancemanager.pythonanywhere.com)
+The web application is hosted using PythonAnywhere.com. You can access it [here](https://sapientiaattendancemanager.pythonanywhere.com)!
